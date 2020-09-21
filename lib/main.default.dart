@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Snooker Scoreboard',
+      title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -19,9 +19,9 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.green,
+        primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Snooker Scoreboard'),
+      home: iPhoneXRXSMax111(),
     );
   }
 }
@@ -45,13 +45,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String player1name = "";
-  String player2name = "";
-
-  int player1Handicap = 0;
-  int player2Handicap = 0;
-
-  bool handicap = false;
+  int _counter = 0;
 
   void _incrementCounter() {
     setState(() {
@@ -60,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
-      player1Handicap++;
+      _counter++;
     });
   }
 
@@ -98,33 +92,13 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            TextField(
-              decoration: InputDecoration(
-                  border: InputBorder.none, hintText: 'Player 1 Name'),
+            Text(
+              'You have pushed the button this many times:',
             ),
-            TextField(
-              decoration: InputDecoration(
-                  border: InputBorder.none, hintText: 'Player 2 Name'),
+            Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.display1,
             ),
-            Text('Handicapped'),
-            Checkbox(
-              value: handicap,
-              onChanged: (bool newValue) {
-                setState(() {
-                  handicap = newValue;
-                });
-              },
-            ),
-            if (handicap)
-              Text(
-                'Foul Points Given',
-                style: TextStyle(
-                  fontFamily: 'Helvetica Neue',
-                  fontSize: 18,
-                  color: const Color(0xff707070),
-                ),
-                textAlign: TextAlign.left,
-              ),
           ],
         ),
       ),

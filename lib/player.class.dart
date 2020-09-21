@@ -5,6 +5,7 @@ class Player {
   int framesWon;
   int snookersRequired;
   int foulPointsGiven;
+  int pointsUntilSnookers;
 
   Player(this.name, this.handicap) {
     this.score = 0;
