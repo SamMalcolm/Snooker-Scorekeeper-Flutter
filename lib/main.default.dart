@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'iPhoneXRXSMax111.dart';
+import 'game.dart';
 
 void main() => runApp(MyApp());
 
