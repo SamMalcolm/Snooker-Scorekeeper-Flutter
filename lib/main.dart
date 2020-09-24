@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'game.dart';
 
 void main() => runApp(MyApp());
@@ -45,8 +46,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String player1name = "";
-  String player2name = "";
+  String player1name = "Player 1";
+  String player2name = "Player 2";
 
   int player1Handicap = 0;
   int player2Handicap = 0;
@@ -72,12 +73,24 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: const EdgeInsets.all(8.0),
             child: TextField(
               decoration: InputDecoration(hintText: 'Player 1 Name'),
+              onChanged: (String value) {
+                setState(() {
+                  value = (value != "") ? value : "Player 1";
+                  player1name = value;
+                });
+              },
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
               decoration: InputDecoration(hintText: 'Player 2 Name'),
+              onChanged: (String value) {
+                setState(() {
+                  value = (value != "") ? value : "Player 2";
+                  player2name = value;
+                });
+              },
             ),
           ),
           Text('Handicapped'),
@@ -90,21 +103,49 @@ class _MyHomePageState extends State<MyHomePage> {
             },
           ),
           if (handicap)
-            Text(
-              'Foul Points Given',
-              style: TextStyle(
-                fontFamily: 'Helvetica Neue',
-                fontSize: 18,
-                color: const Color(0xff707070),
-              ),
-              textAlign: TextAlign.left,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
+                  decoration:
+                      InputDecoration(hintText: player1name + ' handicap'),
+                  onChanged: (String value) {
+                    setState(() {
+                      int newValue;
+                      newValue = int.parse(value);
+                      player1Handicap = newValue;
+                    });
+                  }),
+            ),
+          if (handicap)
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
+                  decoration:
+                      InputDecoration(hintText: player2name + ' handicap'),
+                  onChanged: (String value) {
+                    setState(() {
+                      int newValue;
+                      newValue = int.parse(value);
+                      player2Handicap = newValue;
+                    });
+                  }),
             ),
           RaisedButton(
             onPressed: () {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Game(),
+                    builder: (context) => Game(
+                        playerNames: [player1name, player2name],
+                        playerHandicaps: [player1Handicap, player2Handicap]),
                   ));
             },
             child: const Text('Start Game', style: TextStyle(fontSize: 20)),
