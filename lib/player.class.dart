@@ -6,6 +6,7 @@ class Player {
   int snookersRequired;
   int foulPointsGiven;
   int pointsUntilSnookers;
+  bool active;
 
   Player(this.name, this.handicap) {
     this.score = 0;

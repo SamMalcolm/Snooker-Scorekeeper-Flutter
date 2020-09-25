@@ -2,17 +2,20 @@ import 'package:flutter/material.dart';
 import 'main.dart';
 import 'game.class.dart';
 
-class Game extends StatefulWidget {
-  Game({Key key, this.playerNames, this.playerHandicaps}) : super(key: key);
+class GameView extends StatefulWidget {
+  GameView({Key key, this.playerNames, this.playerHandicaps}) : super(key: key);
 
   final List playerNames;
   final List playerHandicaps;
 
   @override
-  _Game createState() => _Game();
+  _GameView createState() => _GameView();
 }
 
-class _Game extends State<Game> {
+class _GameView extends State<GameView> {
+  int redsRemaining;
+  Game game;
+
   Widget returnScoreLine() {
     return Container(
       height: double.infinity,
@@ -63,6 +66,9 @@ class _Game extends State<Game> {
 
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      game = new Game(widget.playerNames, widget.playerHandicaps);
+    });
     return Scaffold(
         body: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -70,26 +76,32 @@ class _Game extends State<Game> {
       // crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         returnScoreLine(),
-        Column(
-          children: [
-            RaisedButton(
-              child: Text('Return'),
-              onPressed: () {
-                Navigator.pop(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          MyHomePage(title: 'Snooker Scoreboard'),
-                    ));
-              },
-            ),
-            Text(widget.playerNames[0]),
-            if (widget.playerHandicaps != null)
-              Text('${widget.playerHandicaps[0]}'),
-            Text(widget.playerNames[1]),
-            if (widget.playerHandicaps != null)
-              Text('${widget.playerHandicaps[1]}'),
-          ],
+        Padding(
+          padding: const EdgeInsets.only(
+              left: 8.0, right: 8.0, bottom: 8.0, top: 36.0),
+          child: Column(
+            children: [
+              RaisedButton(
+                child: Text('Return'),
+                onPressed: () {
+                  Navigator.pop(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            MyHomePage(title: 'Snooker Scoreboard'),
+                      ));
+                },
+              ),
+              Text(widget.playerNames[0]),
+              if (widget.playerHandicaps != null)
+                Text('${widget.playerHandicaps[0]}'),
+              Text(widget.playerNames[1]),
+              if (widget.playerHandicaps != null)
+                Text('${widget.playerHandicaps[1]}'),
+              Text('Reds Remaining'),
+              Text('${this.game.redsRemaining}')
+            ],
+          ),
         ),
         returnScoreLine(),
       ],
