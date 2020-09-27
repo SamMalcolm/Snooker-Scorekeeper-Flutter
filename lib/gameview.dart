@@ -16,6 +16,50 @@ class _GameView extends State<GameView> {
   int redsRemaining;
   Game game;
 
+  List scoreBoard() {
+    return [
+      Row(
+          // mainAxisSize: MainAxisSize.max,
+          // mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Container(
+              // width: double.infinity / 3,
+              child: Text(
+                '3',
+                style: TextStyle(
+                  fontFamily: 'Helvetica Neue',
+                  fontSize: 22,
+                  color: const Color(0xff707070),
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Container(
+              child: Text(
+                '(7)',
+                style: TextStyle(
+                  fontFamily: 'Helvetica Neue',
+                  fontSize: 22,
+                  color: const Color(0xff707070),
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Container(
+              child: Text(
+                '3',
+                style: TextStyle(
+                  fontFamily: 'Helvetica Neue',
+                  fontSize: 22,
+                  color: const Color(0xff707070),
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ])
+    ];
+  }
+
   Widget returnScoreLine() {
     return Container(
       height: double.infinity,
@@ -72,36 +116,14 @@ class _GameView extends State<GameView> {
     return Scaffold(
         body: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      mainAxisSize: MainAxisSize.max,
-      // crossAxisAlignment: CrossAxisAlignment.stretch,
+      // mainAxisSize: MainAxisSize.max,
       children: <Widget>[
         returnScoreLine(),
-        Padding(
-          padding: const EdgeInsets.only(
-              left: 8.0, right: 8.0, bottom: 8.0, top: 36.0),
-          child: Column(
-            children: [
-              RaisedButton(
-                child: Text('Return'),
-                onPressed: () {
-                  Navigator.pop(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            MyHomePage(title: 'Snooker Scoreboard'),
-                      ));
-                },
-              ),
-              Text(widget.playerNames[0]),
-              if (widget.playerHandicaps != null)
-                Text('${widget.playerHandicaps[0]}'),
-              Text(widget.playerNames[1]),
-              if (widget.playerHandicaps != null)
-                Text('${widget.playerHandicaps[1]}'),
-              Text('Reds Remaining'),
-              Text('${this.game.redsRemaining}')
-            ],
-          ),
+        Row(
+          // mainAxisSize: MainAxisSize.max,
+          // mainAxisAlignment: MainAxisAlignment.spaceAround,
+          // crossAxisAlignment: CrossAxisAlignment.start,
+          children: [...scoreBoard()],
         ),
         returnScoreLine(),
       ],
