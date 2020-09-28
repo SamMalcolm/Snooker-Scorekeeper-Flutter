@@ -10,9 +10,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Snooker Scoreboard',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-      ),
+      theme:
+          ThemeData(primarySwatch: Colors.green, brightness: Brightness.light),
       home: MyHomePage(title: 'Snooker Scoreboard'),
     );
   }
@@ -41,7 +40,6 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
-        brightness: Brightness.light,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
