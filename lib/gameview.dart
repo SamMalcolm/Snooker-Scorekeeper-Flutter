@@ -16,6 +16,32 @@ class _GameView extends State<GameView> {
   int redsRemaining;
   Game game;
 
+  Widget ballButton(text, gradientValues) {
+    return Expanded(
+        child: Container(
+            height: 90.00,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(18.0),
+              gradient: LinearGradient(
+                begin: Alignment(1.0, -1.92),
+                end: Alignment(-0.94, 1.75),
+                colors: gradientValues,
+                stops: [0.0, 1.0],
+              ),
+            ),
+            child: RawMaterialButton(
+                onPressed: () {
+                  print('Pressed');
+                },
+                child: Text('$text',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontFamily: 'Helvetica Neue',
+                      fontSize: 22,
+                      color: const Color(0xffFFFFFF),
+                    )))));
+  }
+
   List scoringInput() {
     return [
       Padding(
@@ -37,98 +63,55 @@ class _GameView extends State<GameView> {
                           stops: [0.0, 1.0],
                         ),
                       ),
-                      child: TextButton(
+                      child: RawMaterialButton(
                           onPressed: () {
                             print('Pressed');
                           },
-                          child: Text('+1',
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                fontFamily: 'Helvetica Neue',
-                                fontSize: 22,
-                                color: const Color(0xffFFFFFF),
-                              )))))
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Text('+1',
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                        fontFamily: 'Helvetica Neue',
+                                        fontSize: 22,
+                                        color: const Color(0xffFFFFFF),
+                                      )),
+                                ),
+                                Container(),
+                                Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Text('15',
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                        fontFamily: 'Helvetica Neue',
+                                        fontSize: 22,
+                                        color: const Color(0xffFFFFFF),
+                                      )),
+                                ),
+                              ]))))
             ],
           ),
           Padding(
             padding: const EdgeInsets.only(top: 8.0),
             child: Row(
               children: [
-                Expanded(
-                    child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(18.0),
-                          gradient: LinearGradient(
-                            begin: Alignment(1.0, -1.92),
-                            end: Alignment(-0.94, 1.75),
-                            colors: [
-                              const Color(0xffC72D2D),
-                              const Color(0xff9D2C2C),
-                            ],
-                            stops: [0.0, 1.0],
-                          ),
-                        ),
-                        child: TextButton(
-                            onPressed: () {
-                              print('Pressed');
-                            },
-                            child: Text('+2',
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  fontFamily: 'Helvetica Neue',
-                                  fontSize: 22,
-                                  color: const Color(0xffFFFFFF),
-                                ))))),
-                Expanded(
-                    child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(18.0),
-                          gradient: LinearGradient(
-                            begin: Alignment(1.0, -1.92),
-                            end: Alignment(-0.94, 1.75),
-                            colors: [
-                              const Color(0xffC72D2D),
-                              const Color(0xff9D2C2C),
-                            ],
-                            stops: [0.0, 1.0],
-                          ),
-                        ),
-                        child: TextButton(
-                            onPressed: () {
-                              print('Pressed');
-                            },
-                            child: Text('+3',
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  fontFamily: 'Helvetica Neue',
-                                  fontSize: 22,
-                                  color: const Color(0xffFFFFFF),
-                                ))))),
-                Expanded(
-                    child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(18.0),
-                          gradient: LinearGradient(
-                            begin: Alignment(1.0, -1.92),
-                            end: Alignment(-0.94, 1.75),
-                            colors: [
-                              const Color(0xffC72D2D),
-                              const Color(0xff9D2C2C),
-                            ],
-                            stops: [0.0, 1.0],
-                          ),
-                        ),
-                        child: TextButton(
-                            onPressed: () {
-                              print('Pressed');
-                            },
-                            child: Text('+4',
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  fontFamily: 'Helvetica Neue',
-                                  fontSize: 22,
-                                  color: const Color(0xffFFFFFF),
-                                )))))
+                ballButton('+2', [
+                  const Color(0xffE0C534),
+                  const Color(0xffCEB636),
+                ]),
+                SizedBox(width: 10.00),
+                ballButton('+3', [
+                  const Color(0xff4CA256),
+                  const Color(0xff397140),
+                ]),
+                SizedBox(width: 10.00),
+                ballButton('+4', [
+                  const Color(0xffB48247),
+                  const Color(0xff694A20),
+                ]),
               ],
             ),
           ),
@@ -136,88 +119,93 @@ class _GameView extends State<GameView> {
             padding: const EdgeInsets.only(top: 8.0),
             child: Row(
               children: [
-                Expanded(
-                    child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(18.0),
-                          gradient: LinearGradient(
-                            begin: Alignment(1.0, -1.92),
-                            end: Alignment(-0.94, 1.75),
-                            colors: [
-                              const Color(0xffC72D2D),
-                              const Color(0xff9D2C2C),
-                            ],
-                            stops: [0.0, 1.0],
-                          ),
-                        ),
-                        child: TextButton(
-                            onPressed: () {
-                              print('Pressed');
-                            },
-                            child: Text('+5',
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  fontFamily: 'Helvetica Neue',
-                                  fontSize: 22,
-                                  color: const Color(0xffFFFFFF),
-                                ))))),
-                Expanded(
-                    child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                      height: 80.00,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(18.0),
-                        gradient: LinearGradient(
-                          begin: Alignment(1.0, -1.92),
-                          end: Alignment(-0.94, 1.75),
-                          colors: [
-                            const Color(0xffC72D2D),
-                            const Color(0xff9D2C2C),
-                          ],
-                          stops: [0.0, 1.0],
-                        ),
-                      ),
-                      child: TextButton(
-                          onPressed: () {
-                            print('Pressed');
-                          },
-                          child: Text('+6',
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                fontFamily: 'Helvetica Neue',
-                                fontSize: 22,
-                                color: const Color(0xffFFFFFF),
-                              )))),
-                )),
-                Expanded(
-                    child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(18.0),
-                          gradient: LinearGradient(
-                            begin: Alignment(1.0, -1.92),
-                            end: Alignment(-0.94, 1.75),
-                            colors: [
-                              const Color(0xffC72D2D),
-                              const Color(0xff9D2C2C),
-                            ],
-                            stops: [0.0, 1.0],
-                          ),
-                        ),
-                        child: TextButton(
-                            onPressed: () {
-                              print('Pressed');
-                            },
-                            child: Text('+7',
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  fontFamily: 'Helvetica Neue',
-                                  fontSize: 22,
-                                  color: const Color(0xffFFFFFF),
-                                )))))
+                ballButton('+5', [
+                  const Color(0xff5271D6),
+                  const Color(0xff2F4EB4),
+                ]),
+                SizedBox(width: 10.00),
+                ballButton('+6', [
+                  const Color(0xffE066BA),
+                  const Color(0xff9B3D9B),
+                ]),
+                SizedBox(width: 10.00),
+                ballButton('+7', [
+                  const Color(0xff393939),
+                  const Color(0xff0B0B0B),
+                ]),
               ],
             ),
-          )
+          ),
+          SizedBox(height: 10.00),
+          Row(
+            children: [
+              Expanded(
+                  child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(18.0),
+                  gradient: LinearGradient(
+                    begin: Alignment(1.0, -1.92),
+                    end: Alignment(-0.94, 1.75),
+                    colors: [
+                      const Color(0xffCCCACA),
+                      const Color(0xffA2A0A0),
+                    ],
+                    stops: [0.0, 1.0],
+                  ),
+                ),
+                child: RawMaterialButton(
+                  onPressed: () {
+                    print('Pressed');
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text('Foul',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontFamily: 'Helvetica Neue',
+                          fontSize: 22,
+                          color: const Color(0xffFFFFFF),
+                        )),
+                  ),
+                ),
+              ))
+            ],
+          ),
+          SizedBox(height: 10.00),
+          Row(
+            children: [
+              Expanded(
+                  child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(18.0),
+                  gradient: LinearGradient(
+                    begin: Alignment(1.0, -1.92),
+                    end: Alignment(-0.94, 1.75),
+                    colors: [
+                      const Color(0xffCCCACA),
+                      const Color(0xffA2A0A0),
+                    ],
+                    stops: [0.0, 1.0],
+                  ),
+                ),
+                child: RawMaterialButton(
+                  onPressed: () {
+                    print('Pressed');
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text('Free Ball',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontFamily: 'Helvetica Neue',
+                          fontSize: 22,
+                          color: const Color(0xffFFFFFF),
+                        )),
+                  ),
+                ),
+              ))
+            ],
+          ),
         ]),
       )
     ];
@@ -225,86 +213,82 @@ class _GameView extends State<GameView> {
 
   List scoreBoard() {
     return [
-      Padding(
-        padding: const EdgeInsets.only(top: 48.0),
-        child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Expanded(
-            child: Column(children: [
-              Text(
-                '3',
-                style: TextStyle(
-                  fontFamily: 'Helvetica Neue',
-                  fontSize: 22,
-                  color: const Color(0xff707070),
-                ),
-                textAlign: TextAlign.center,
+      Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Expanded(
+          child: Column(children: [
+            Text(
+              '3',
+              style: TextStyle(
+                fontFamily: 'Helvetica Neue',
+                fontSize: 22,
+                color: const Color(0xff707070),
               ),
-              Text(
-                '32',
-                style: TextStyle(
-                  fontFamily: 'Helvetica Neue',
-                  fontSize: 42,
-                  color: const Color(0xff707070),
-                ),
-                textAlign: TextAlign.center,
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              '32',
+              style: TextStyle(
+                fontFamily: 'Helvetica Neue',
+                fontSize: 42,
+                color: const Color(0xff707070),
               ),
-              Text(
-                'Sam',
-                style: TextStyle(
-                  fontFamily: 'Helvetica Neue',
-                  fontSize: 18,
-                  color: const Color(0xff707070),
-                ),
-                textAlign: TextAlign.center,
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              'Sam',
+              style: TextStyle(
+                fontFamily: 'Helvetica Neue',
+                fontSize: 18,
               ),
-            ]),
-          ),
-          Expanded(
-            child: Container(
-              child: Text(
-                '(7)',
-                style: TextStyle(
-                  fontFamily: 'Helvetica Neue',
-                  fontSize: 22,
-                  color: const Color(0xff707070),
-                ),
-                textAlign: TextAlign.center,
+              textAlign: TextAlign.center,
+            ),
+          ]),
+        ),
+        Expanded(
+          child: Container(
+            child: Text(
+              '(7)',
+              style: TextStyle(
+                fontFamily: 'Helvetica Neue',
+                fontSize: 22,
+                color: const Color(0xff707070),
               ),
+              textAlign: TextAlign.center,
             ),
           ),
-          Expanded(
-            child: Column(children: [
-              Text(
-                '3',
-                style: TextStyle(
-                  fontFamily: 'Helvetica Neue',
-                  fontSize: 22,
-                  color: const Color(0xff707070),
-                ),
-                textAlign: TextAlign.center,
+        ),
+        Expanded(
+          child: Column(children: [
+            Text(
+              '3',
+              style: TextStyle(
+                fontFamily: 'Helvetica Neue',
+                fontSize: 22,
+                color: const Color(0xff707070),
               ),
-              Text(
-                '147',
-                style: TextStyle(
-                  fontFamily: 'Helvetica Neue',
-                  fontSize: 42,
-                  color: const Color(0xff707070),
-                ),
-                textAlign: TextAlign.center,
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              '147',
+              style: TextStyle(
+                fontFamily: 'Helvetica Neue',
+                fontSize: 42,
+                color: const Color(0xff707070),
               ),
-              Text(
-                'David',
-                style: TextStyle(
-                  fontFamily: 'Helvetica Neue',
-                  fontSize: 18,
-                  color: const Color(0xff707070),
-                ),
-                textAlign: TextAlign.center,
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              'David',
+              style: TextStyle(
+                fontFamily: 'Helvetica Neue',
+                fontSize: 18,
+                color: const Color(0xff707070),
               ),
-            ]),
-          ),
-        ]),
-      )
+              textAlign: TextAlign.center,
+            ),
+          ]),
+        ),
+      ]),
     ];
   }
 
@@ -367,11 +351,13 @@ class _GameView extends State<GameView> {
       children: <Widget>[
         returnScoreLine(),
         Expanded(
-          child: Column(
-            children: [
-              ...scoreBoard(),
-              ...scoringInput(),
-            ],
+          child: SafeArea(
+            child: Column(
+              children: [
+                ...scoreBoard(),
+                ...scoringInput(),
+              ],
+            ),
           ),
         ),
         returnScoreLine(),
