@@ -15,7 +15,7 @@ class GameView extends StatefulWidget {
 class _GameView extends State<GameView> {
   int redsRemaining;
   Game game;
-
+  bool foulInput = false;
   Widget ballButton(text, gradientValues) {
     return Expanded(
         child: Container(
@@ -42,6 +42,25 @@ class _GameView extends State<GameView> {
                     )))));
   }
 
+  Widget bigButton(child, gradientValues, pressed) {
+    return Expanded(
+        child: Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(18.0),
+        gradient: LinearGradient(
+          begin: Alignment(1.0, -1.92),
+          end: Alignment(-0.94, 1.75),
+          colors: gradientValues,
+          stops: [0.0, 1.0],
+        ),
+      ),
+      child: RawMaterialButton(
+        onPressed: pressed,
+        child: Padding(padding: const EdgeInsets.all(16.0), child: child),
+      ),
+    ));
+  }
+
   List scoringInput() {
     return [
       Padding(
@@ -49,49 +68,32 @@ class _GameView extends State<GameView> {
         child: Column(children: [
           Row(
             children: [
-              Expanded(
-                  child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(18.0),
-                        gradient: LinearGradient(
-                          begin: Alignment(1.0, -1.92),
-                          end: Alignment(-0.94, 1.75),
-                          colors: [
-                            const Color(0xffC72D2D),
-                            const Color(0xff9D2C2C),
-                          ],
-                          stops: [0.0, 1.0],
-                        ),
-                      ),
-                      child: RawMaterialButton(
-                          onPressed: () {
-                            print('Pressed');
-                          },
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: Text('+1',
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                        fontFamily: 'Helvetica Neue',
-                                        fontSize: 22,
-                                        color: const Color(0xffFFFFFF),
-                                      )),
-                                ),
-                                Container(),
-                                Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: Text('15',
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                        fontFamily: 'Helvetica Neue',
-                                        fontSize: 22,
-                                        color: const Color(0xffFFFFFF),
-                                      )),
-                                ),
-                              ]))))
+              bigButton(
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('+1',
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              fontFamily: 'Helvetica Neue',
+                              fontSize: 22,
+                              color: const Color(0xffFFFFFF),
+                            )),
+                        Container(),
+                        Text('15',
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              fontFamily: 'Helvetica Neue',
+                              fontSize: 22,
+                              color: const Color(0xffFFFFFF),
+                            )),
+                      ]),
+                  [
+                    const Color(0xffC72D2D),
+                    const Color(0xff9D2C2C),
+                  ], () {
+                print('pressed');
+              })
             ],
           ),
           Padding(
@@ -139,71 +141,133 @@ class _GameView extends State<GameView> {
           SizedBox(height: 10.00),
           Row(
             children: [
-              Expanded(
-                  child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(18.0),
-                  gradient: LinearGradient(
-                    begin: Alignment(1.0, -1.92),
-                    end: Alignment(-0.94, 1.75),
-                    colors: [
-                      const Color(0xffCCCACA),
-                      const Color(0xffA2A0A0),
-                    ],
-                    stops: [0.0, 1.0],
-                  ),
-                ),
-                child: RawMaterialButton(
-                  onPressed: () {
-                    print('Pressed');
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text('Foul',
+              if (!foulInput)
+                bigButton(
+                    Text('Foul',
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           fontFamily: 'Helvetica Neue',
                           fontSize: 22,
                           color: const Color(0xffFFFFFF),
                         )),
-                  ),
-                ),
-              ))
+                    [
+                      const Color(0xffCCCACA),
+                      const Color(0xffA2A0A0),
+                    ], () {
+                  setState(() {
+                    foulInput = true;
+                  });
+                })
+            ],
+          ),
+          if (foulInput)
+            Row(
+              children: [
+                bigButton(
+                    Text('4',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontFamily: 'Helvetica Neue',
+                          fontSize: 22,
+                          color: const Color(0xffFFFFFF),
+                        )),
+                    [
+                      const Color(0xffCCCACA),
+                      const Color(0xffA2A0A0),
+                    ], () {
+                  setState(() {
+                    foulInput = false;
+                  });
+                }),
+                SizedBox(width: 10.00),
+                bigButton(
+                    Text('5',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontFamily: 'Helvetica Neue',
+                          fontSize: 22,
+                          color: const Color(0xffFFFFFF),
+                        )),
+                    [
+                      const Color(0xffCCCACA),
+                      const Color(0xffA2A0A0),
+                    ], () {
+                  setState(() {
+                    foulInput = false;
+                  });
+                }),
+                SizedBox(width: 10.00),
+                bigButton(
+                    Text('6',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontFamily: 'Helvetica Neue',
+                          fontSize: 22,
+                          color: const Color(0xffFFFFFF),
+                        )),
+                    [
+                      const Color(0xffCCCACA),
+                      const Color(0xffA2A0A0),
+                    ], () {
+                  setState(() {
+                    foulInput = false;
+                  });
+                }),
+                SizedBox(width: 10.00),
+                bigButton(
+                    Text('7',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontFamily: 'Helvetica Neue',
+                          fontSize: 22,
+                          color: const Color(0xffFFFFFF),
+                        )),
+                    [
+                      const Color(0xffCCCACA),
+                      const Color(0xffA2A0A0),
+                    ], () {
+                  setState(() {
+                    foulInput = false;
+                  });
+                }),
+              ],
+            ),
+          SizedBox(height: 10.00),
+          Row(
+            children: [
+              bigButton(
+                  Text('Free Ball',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontFamily: 'Helvetica Neue',
+                        fontSize: 22,
+                        color: const Color(0xffFFFFFF),
+                      )),
+                  [
+                    const Color(0xffCCCACA),
+                    const Color(0xffA2A0A0),
+                  ], () {
+                print('pressed');
+              })
             ],
           ),
           SizedBox(height: 10.00),
           Row(
             children: [
-              Expanded(
-                  child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(18.0),
-                  gradient: LinearGradient(
-                    begin: Alignment(1.0, -1.92),
-                    end: Alignment(-0.94, 1.75),
-                    colors: [
-                      const Color(0xffCCCACA),
-                      const Color(0xffA2A0A0),
-                    ],
-                    stops: [0.0, 1.0],
-                  ),
-                ),
-                child: RawMaterialButton(
-                  onPressed: () {
-                    print('Pressed');
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text('Free Ball',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontFamily: 'Helvetica Neue',
-                          fontSize: 22,
-                          color: const Color(0xffFFFFFF),
-                        )),
-                  ),
-                ),
-              ))
+              bigButton(
+                  Text('Undo',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontFamily: 'Helvetica Neue',
+                        fontSize: 22,
+                        color: const Color(0xffFFFFFF),
+                      )),
+                  [
+                    const Color(0xffCCCACA),
+                    const Color(0xffA2A0A0),
+                  ], () {
+                print('pressed');
+              })
             ],
           ),
         ]),
