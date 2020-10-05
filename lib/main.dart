@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Snooker Scoreboard',
+      title: 'Snooker',
       theme:
           ThemeData(primarySwatch: Colors.green, brightness: Brightness.light),
       home: MyHomePage(title: 'Snooker Scoreboard'),
