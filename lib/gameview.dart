@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'main.dart';
 import 'game.class.dart';
+// import 'package:flutter/src/widgets/framework.dart';
+import 'components.dart';
 
 class GameView extends StatefulWidget {
   GameView({Key key, this.playerNames, this.playerHandicaps}) : super(key: key);
@@ -16,6 +17,7 @@ class _GameView extends State<GameView> {
   int redsRemaining;
   Game game;
   bool foulInput = false;
+  bool fb = false;
   Widget ballButton(text, gradientValues) {
     return Expanded(
         child: Container(
@@ -38,27 +40,8 @@ class _GameView extends State<GameView> {
                     style: TextStyle(
                       fontFamily: 'Helvetica Neue',
                       fontSize: 22,
-                      color: const Color(0xffFFFFFF),
+                      color: Colors.white,
                     )))));
-  }
-
-  Widget bigButton(child, gradientValues, pressed) {
-    return Expanded(
-        child: Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(18.0),
-        gradient: LinearGradient(
-          begin: Alignment(1.0, -1.92),
-          end: Alignment(-0.94, 1.75),
-          colors: gradientValues,
-          stops: [0.0, 1.0],
-        ),
-      ),
-      child: RawMaterialButton(
-        onPressed: pressed,
-        child: Padding(padding: const EdgeInsets.all(16.0), child: child),
-      ),
-    ));
   }
 
   List scoringInput() {
@@ -66,36 +49,72 @@ class _GameView extends State<GameView> {
       Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(children: [
-          Row(
-            children: [
-              bigButton(
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('+1',
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              fontFamily: 'Helvetica Neue',
-                              fontSize: 22,
-                              color: const Color(0xffFFFFFF),
-                            )),
-                        Container(),
-                        Text('15',
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              fontFamily: 'Helvetica Neue',
-                              fontSize: 22,
-                              color: const Color(0xffFFFFFF),
-                            )),
-                      ]),
-                  [
-                    const Color(0xffC72D2D),
-                    const Color(0xff9D2C2C),
-                  ], () {
-                print('pressed');
-              })
-            ],
-          ),
+          Row(children: [
+            bigButton(
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('+1',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            fontFamily: 'Helvetica Neue',
+                            fontSize: 22,
+                            color: Colors.white,
+                          )),
+                      Container(),
+                      Text('15',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            fontFamily: 'Helvetica Neue',
+                            fontSize: 22,
+                            color: Colors.white,
+                          )),
+                    ]),
+                [
+                  const Color(0xffC72D2D),
+                  const Color(0xff9D2C2C),
+                ], () {
+              print('pressed');
+            }),
+            SizedBox(width: 10.00),
+            Expanded(
+                child: Row(
+              children: [
+                bigButton(
+                    Text('+',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontFamily: 'Helvetica Neue',
+                          fontSize: 22,
+                          color: Colors.white,
+                        )),
+                    [
+                      const Color(0xffC72D2D),
+                      const Color(0xff9D2C2C),
+                    ], () {
+                  print('pressed');
+                }),
+                SizedBox(width: 10.00),
+                bigButton(
+                    Text('-',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontFamily: 'Helvetica Neue',
+                          fontSize: 22,
+                          color: Colors.white,
+                        )),
+                    [
+                      const Color(0xffC72D2D),
+                      const Color(0xff9D2C2C),
+                    ], () {
+                  print('pressed');
+                }),
+              ],
+            ))
+          ]),
+
+          //
+
           Padding(
             padding: const EdgeInsets.only(top: 8.0),
             child: Row(
@@ -139,16 +158,16 @@ class _GameView extends State<GameView> {
             ),
           ),
           SizedBox(height: 10.00),
-          Row(
-            children: [
-              if (!foulInput)
+          if (!foulInput)
+            Row(
+              children: [
                 bigButton(
                     Text('Foul',
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           fontFamily: 'Helvetica Neue',
                           fontSize: 22,
-                          color: const Color(0xffFFFFFF),
+                          color: Colors.white,
                         )),
                     [
                       const Color(0xffCCCACA),
@@ -158,8 +177,8 @@ class _GameView extends State<GameView> {
                     foulInput = true;
                   });
                 })
-            ],
-          ),
+              ],
+            ),
           if (foulInput)
             Row(
               children: [
@@ -169,7 +188,7 @@ class _GameView extends State<GameView> {
                         style: TextStyle(
                           fontFamily: 'Helvetica Neue',
                           fontSize: 22,
-                          color: const Color(0xffFFFFFF),
+                          color: Colors.white,
                         )),
                     [
                       const Color(0xffCCCACA),
@@ -186,7 +205,7 @@ class _GameView extends State<GameView> {
                         style: TextStyle(
                           fontFamily: 'Helvetica Neue',
                           fontSize: 22,
-                          color: const Color(0xffFFFFFF),
+                          color: Colors.white,
                         )),
                     [
                       const Color(0xffCCCACA),
@@ -203,7 +222,7 @@ class _GameView extends State<GameView> {
                         style: TextStyle(
                           fontFamily: 'Helvetica Neue',
                           fontSize: 22,
-                          color: const Color(0xffFFFFFF),
+                          color: Colors.white,
                         )),
                     [
                       const Color(0xffCCCACA),
@@ -220,7 +239,7 @@ class _GameView extends State<GameView> {
                         style: TextStyle(
                           fontFamily: 'Helvetica Neue',
                           fontSize: 22,
-                          color: const Color(0xffFFFFFF),
+                          color: Colors.white,
                         )),
                     [
                       const Color(0xffCCCACA),
@@ -241,7 +260,40 @@ class _GameView extends State<GameView> {
                       style: TextStyle(
                         fontFamily: 'Helvetica Neue',
                         fontSize: 22,
-                        color: const Color(0xffFFFFFF),
+                        color: Colors.white,
+                      )),
+                  freeBallInputColour(fb), () {
+                setState(() {
+                  fb = !fb;
+                });
+              })
+            ],
+          ),
+          SizedBox(height: 10.00),
+          Row(
+            children: [
+              bigButton(
+                  Text('Undo',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontFamily: 'Helvetica Neue',
+                        fontSize: 22,
+                        color: Colors.white,
+                      )),
+                  [
+                    const Color(0xffCCCACA),
+                    const Color(0xffA2A0A0),
+                  ], () {
+                print('pressed');
+              }),
+              SizedBox(width: 10.00),
+              bigButton(
+                  Text('Resign',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontFamily: 'Helvetica Neue',
+                        fontSize: 22,
+                        color: Colors.white,
                       )),
                   [
                     const Color(0xffCCCACA),
@@ -255,12 +307,12 @@ class _GameView extends State<GameView> {
           Row(
             children: [
               bigButton(
-                  Text('Undo',
+                  Text('Pass Turn',
                       textAlign: TextAlign.left,
                       style: TextStyle(
                         fontFamily: 'Helvetica Neue',
                         fontSize: 22,
-                        color: const Color(0xffFFFFFF),
+                        color: Colors.white,
                       )),
                   [
                     const Color(0xffCCCACA),
@@ -285,7 +337,6 @@ class _GameView extends State<GameView> {
               style: TextStyle(
                 fontFamily: 'Helvetica Neue',
                 fontSize: 22,
-                color: const Color(0xff707070),
               ),
               textAlign: TextAlign.center,
             ),
@@ -294,7 +345,6 @@ class _GameView extends State<GameView> {
               style: TextStyle(
                 fontFamily: 'Helvetica Neue',
                 fontSize: 42,
-                color: const Color(0xff707070),
               ),
               textAlign: TextAlign.center,
             ),
@@ -315,7 +365,6 @@ class _GameView extends State<GameView> {
               style: TextStyle(
                 fontFamily: 'Helvetica Neue',
                 fontSize: 22,
-                color: const Color(0xff707070),
               ),
               textAlign: TextAlign.center,
             ),
@@ -326,28 +375,25 @@ class _GameView extends State<GameView> {
             Text(
               '3',
               style: TextStyle(
-                fontFamily: 'Helvetica Neue',
-                fontSize: 22,
-                color: const Color(0xff707070),
-              ),
+                  fontFamily: 'Helvetica Neue',
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             Text(
               '147',
               style: TextStyle(
-                fontFamily: 'Helvetica Neue',
-                fontSize: 42,
-                color: const Color(0xff707070),
-              ),
+                  fontFamily: 'Helvetica Neue',
+                  fontSize: 42,
+                  fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             Text(
               'David',
               style: TextStyle(
-                fontFamily: 'Helvetica Neue',
-                fontSize: 18,
-                color: const Color(0xff707070),
-              ),
+                  fontFamily: 'Helvetica Neue',
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ]),
@@ -406,26 +452,33 @@ class _GameView extends State<GameView> {
 
   @override
   Widget build(BuildContext context) {
-    setState(() {
-      game = new Game(widget.playerNames, widget.playerHandicaps);
-    });
-    return Scaffold(
-        body: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        returnScoreLine(),
-        Expanded(
-          child: SafeArea(
-            child: Column(
-              children: [
-                ...scoreBoard(),
-                ...scoringInput(),
-              ],
+    print('BUILDING');
+
+    return Scaffold(body: OrientationBuilder(builder: (context, orientation) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          returnScoreLine(),
+          Expanded(
+            child: SafeArea(
+              child: Container(
+                height: MediaQuery.of(context).size.height,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      ...scoreBoard(),
+                      ...scoringInput(),
+                    ],
+                  ),
+                ),
+              ),
             ),
           ),
-        ),
-        returnScoreLine(),
-      ],
-    ));
+          returnScoreLine(),
+          if (orientation == Orientation.landscape) SizedBox(width: 30.00)
+        ],
+      );
+    }));
   }
 }

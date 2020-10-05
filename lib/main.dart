@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'gameview.dart';
+import 'components.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  runApp(new MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -38,12 +43,29 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
+          Stack(
+            alignment: Alignment.bottomLeft,
+            children: [
+              Image(image: AssetImage('images/snooker.jpg')),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Snooker Scorer',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    fontFamily: 'Helvetica Neue',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 22,
+                    color: Colors.white,
+                  ),
+                ),
+              )
+            ],
+          ),
+          SizedBox(height: 15.00),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
@@ -67,19 +89,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 });
               },
             ),
-          ),
-          Text('Handicapped'),
-          Checkbox(
-            value: handicap,
-            onChanged: (bool newValue) {
-              setState(() {
-                if (!newValue) {
-                  player1Handicap = 0;
-                  player2Handicap = 0;
-                }
-                handicap = newValue;
-              });
-            },
           ),
           if (handicap)
             Padding(
@@ -117,18 +126,50 @@ class _MyHomePageState extends State<MyHomePage> {
                     });
                   }),
             ),
-          RaisedButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => GameView(
-                        playerNames: [player1name, player2name],
-                        playerHandicaps: [player1Handicap, player2Handicap]),
-                  ));
-            },
-            child: const Text('Start Game', style: TextStyle(fontSize: 20)),
-          )
+          SizedBox(height: 15.00),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(children: [
+              bigButton(
+                  Text('Handicap',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontFamily: 'Helvetica Neue',
+                        fontSize: 22,
+                        color: Colors.white,
+                      )),
+                  freeBallInputColour(handicap), () {
+                setState(() {
+                  handicap = !handicap;
+                });
+              }),
+            ]),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(children: [
+              bigButton(
+                  Text('Start Game',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontFamily: 'Helvetica Neue',
+                        fontSize: 22,
+                        color: Colors.white,
+                      )),
+                  [
+                    const Color(0xff4CA256),
+                    const Color(0xff397140),
+                  ], () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => GameView(
+                          playerNames: [player1name, player2name],
+                          playerHandicaps: [player1Handicap, player2Handicap]),
+                    ));
+              }),
+            ]),
+          ),
         ],
       ),
     );

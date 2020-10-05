@@ -1,4 +1,4 @@
-package com.example.snooker_scorekeeper
+package com.example.snooker
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

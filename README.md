@@ -1,4 +1,4 @@
-# snooker_scorekeeper
+# Snooker Smart Scoreboard
 
 A new Flutter project.
 
