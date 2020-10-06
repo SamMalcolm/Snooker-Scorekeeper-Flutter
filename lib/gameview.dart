@@ -18,6 +18,7 @@ class _GameView extends State<GameView> {
   Game game;
   bool foulInput = false;
   bool fb = false;
+  bool init = false;
   Widget ballButton(text, gradientValues) {
     return Expanded(
         child: Container(
@@ -62,7 +63,7 @@ class _GameView extends State<GameView> {
                             color: Colors.white,
                           )),
                       Container(),
-                      Text('15',
+                      Text('${game.redsRemaining}',
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             fontFamily: 'Helvetica Neue',
@@ -92,7 +93,9 @@ class _GameView extends State<GameView> {
                       const Color(0xffC72D2D),
                       const Color(0xff9D2C2C),
                     ], () {
-                  print('pressed');
+                  setState(() {
+                    game.incrementReds();
+                  });
                 }),
                 SizedBox(width: 10.00),
                 bigButton(
@@ -107,7 +110,9 @@ class _GameView extends State<GameView> {
                       const Color(0xffC72D2D),
                       const Color(0xff9D2C2C),
                     ], () {
-                  print('pressed');
+                  setState(() {
+                    game.decrementReds();
+                  });
                 }),
               ],
             ))
@@ -349,7 +354,7 @@ class _GameView extends State<GameView> {
               textAlign: TextAlign.center,
             ),
             Text(
-              'Sam',
+              game.players[0].name,
               style: TextStyle(
                 fontFamily: 'Helvetica Neue',
                 fontSize: 18,
@@ -361,7 +366,7 @@ class _GameView extends State<GameView> {
         Expanded(
           child: Container(
             child: Text(
-              '(7)',
+              '(${game.framesPlayed})',
               style: TextStyle(
                 fontFamily: 'Helvetica Neue',
                 fontSize: 22,
@@ -389,7 +394,7 @@ class _GameView extends State<GameView> {
               textAlign: TextAlign.center,
             ),
             Text(
-              'David',
+              game.players[1].name,
               style: TextStyle(
                   fontFamily: 'Helvetica Neue',
                   fontSize: 18,
@@ -453,6 +458,13 @@ class _GameView extends State<GameView> {
   @override
   Widget build(BuildContext context) {
     print('BUILDING');
+
+    setState(() {
+      if (!init) {
+        game = new Game(widget.playerNames, widget.playerHandicaps);
+        init = true;
+      }
+    });
 
     return Scaffold(body: OrientationBuilder(builder: (context, orientation) {
       return Row(
