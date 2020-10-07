@@ -19,31 +19,6 @@ class _GameView extends State<GameView> {
   bool foulInput = false;
   bool fb = false;
   bool init = false;
-  Widget ballButton(text, gradientValues) {
-    return Expanded(
-        child: Container(
-            height: 90.00,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(18.0),
-              gradient: LinearGradient(
-                begin: Alignment(1.0, -1.92),
-                end: Alignment(-0.94, 1.75),
-                colors: gradientValues,
-                stops: [0.0, 1.0],
-              ),
-            ),
-            child: RawMaterialButton(
-                onPressed: () {
-                  print('Pressed');
-                },
-                child: Text('$text',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      fontFamily: 'Helvetica Neue',
-                      fontSize: 22,
-                      color: Colors.white,
-                    )))));
-  }
 
   List scoringInput() {
     return [
@@ -75,7 +50,9 @@ class _GameView extends State<GameView> {
                   const Color(0xffC72D2D),
                   const Color(0xff9D2C2C),
                 ], () {
-              print('pressed');
+              setState(() {
+                game.pot("R");
+              });
             }),
             SizedBox(width: 10.00),
             Expanded(
@@ -127,17 +104,29 @@ class _GameView extends State<GameView> {
                 ballButton('+2', [
                   const Color(0xffE0C534),
                   const Color(0xffCEB636),
-                ]),
+                ], () {
+                  setState(() {
+                    game.pot("Y");
+                  });
+                }),
                 SizedBox(width: 10.00),
                 ballButton('+3', [
                   const Color(0xff4CA256),
                   const Color(0xff397140),
-                ]),
+                ], () {
+                  setState(() {
+                    game.pot("G");
+                  });
+                }),
                 SizedBox(width: 10.00),
                 ballButton('+4', [
                   const Color(0xffB48247),
                   const Color(0xff694A20),
-                ]),
+                ], () {
+                  setState(() {
+                    game.pot("br");
+                  });
+                }),
               ],
             ),
           ),
@@ -148,17 +137,29 @@ class _GameView extends State<GameView> {
                 ballButton('+5', [
                   const Color(0xff5271D6),
                   const Color(0xff2F4EB4),
-                ]),
+                ], () {
+                  setState(() {
+                    game.pot("bl");
+                  });
+                }),
                 SizedBox(width: 10.00),
                 ballButton('+6', [
                   const Color(0xffE066BA),
                   const Color(0xff9B3D9B),
-                ]),
+                ], () {
+                  setState(() {
+                    game.pot("P");
+                  });
+                }),
                 SizedBox(width: 10.00),
                 ballButton('+7', [
                   const Color(0xff393939),
                   const Color(0xff0B0B0B),
-                ]),
+                ], () {
+                  setState(() {
+                    game.pot("B");
+                  });
+                }),
               ],
             ),
           ),
@@ -201,6 +202,7 @@ class _GameView extends State<GameView> {
                     ], () {
                   setState(() {
                     foulInput = false;
+                    game.foul(4);
                   });
                 }),
                 SizedBox(width: 10.00),
@@ -218,6 +220,7 @@ class _GameView extends State<GameView> {
                     ], () {
                   setState(() {
                     foulInput = false;
+                    game.foul(5);
                   });
                 }),
                 SizedBox(width: 10.00),
@@ -235,6 +238,7 @@ class _GameView extends State<GameView> {
                     ], () {
                   setState(() {
                     foulInput = false;
+                    game.foul(6);
                   });
                 }),
                 SizedBox(width: 10.00),
@@ -252,6 +256,7 @@ class _GameView extends State<GameView> {
                     ], () {
                   setState(() {
                     foulInput = false;
+                    game.foul(7);
                   });
                 }),
               ],
@@ -304,7 +309,9 @@ class _GameView extends State<GameView> {
                     const Color(0xffCCCACA),
                     const Color(0xffA2A0A0),
                   ], () {
-                print('pressed');
+                setState(() {
+                  game.endGame();
+                });
               })
             ],
           ),
@@ -323,7 +330,9 @@ class _GameView extends State<GameView> {
                     const Color(0xffCCCACA),
                     const Color(0xffA2A0A0),
                   ], () {
-                print('pressed');
+                setState(() {
+                  game.passTurn();
+                });
               })
             ],
           ),
@@ -338,27 +347,33 @@ class _GameView extends State<GameView> {
         Expanded(
           child: Column(children: [
             Text(
-              '3',
+              '${game.players[0].framesWon}',
               style: TextStyle(
-                fontFamily: 'Helvetica Neue',
-                fontSize: 22,
-              ),
+                  fontFamily: 'Helvetica Neue',
+                  fontSize: 22,
+                  fontWeight: (game.players[0].active)
+                      ? FontWeight.bold
+                      : FontWeight.normal),
               textAlign: TextAlign.center,
             ),
             Text(
-              '32',
+              '${game.players[0].score}',
               style: TextStyle(
-                fontFamily: 'Helvetica Neue',
-                fontSize: 42,
-              ),
+                  fontFamily: 'Helvetica Neue',
+                  fontSize: 42,
+                  fontWeight: (game.players[0].active)
+                      ? FontWeight.bold
+                      : FontWeight.normal),
               textAlign: TextAlign.center,
             ),
             Text(
               game.players[0].name,
               style: TextStyle(
-                fontFamily: 'Helvetica Neue',
-                fontSize: 18,
-              ),
+                  fontFamily: 'Helvetica Neue',
+                  fontSize: 18,
+                  fontWeight: (game.players[0].active)
+                      ? FontWeight.bold
+                      : FontWeight.normal),
               textAlign: TextAlign.center,
             ),
           ]),
@@ -378,19 +393,23 @@ class _GameView extends State<GameView> {
         Expanded(
           child: Column(children: [
             Text(
-              '3',
+              '${game.players[1].framesWon}',
               style: TextStyle(
                   fontFamily: 'Helvetica Neue',
                   fontSize: 22,
-                  fontWeight: FontWeight.bold),
+                  fontWeight: (game.players[1].active)
+                      ? FontWeight.bold
+                      : FontWeight.normal),
               textAlign: TextAlign.center,
             ),
             Text(
-              '147',
+              '${game.players[1].score}',
               style: TextStyle(
                   fontFamily: 'Helvetica Neue',
                   fontSize: 42,
-                  fontWeight: FontWeight.bold),
+                  fontWeight: (game.players[1].active)
+                      ? FontWeight.bold
+                      : FontWeight.normal),
               textAlign: TextAlign.center,
             ),
             Text(
@@ -398,61 +417,15 @@ class _GameView extends State<GameView> {
               style: TextStyle(
                   fontFamily: 'Helvetica Neue',
                   fontSize: 18,
-                  fontWeight: FontWeight.bold),
+                  fontWeight: (game.players[1].active)
+                      ? FontWeight.bold
+                      : FontWeight.normal),
               textAlign: TextAlign.center,
             ),
           ]),
         ),
       ]),
     ];
-  }
-
-  Widget returnScoreLine() {
-    return Container(
-      height: double.infinity,
-      width: 35.00,
-      child: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          FractionallySizedBox(
-            widthFactor: 1,
-            heightFactor: 1,
-            child: Container(
-                color: Color(0xFFCCCCCC),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 36.0),
-                  child: Text('129',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.black)),
-                )),
-          ),
-          FractionallySizedBox(
-            widthFactor: 1,
-            heightFactor: 0.5,
-            child: Container(
-                color: Color(0xFFC3A164),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Text('129',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white)),
-                )),
-          ),
-          FractionallySizedBox(
-            widthFactor: 1,
-            heightFactor: 0.2,
-            child: Container(
-                color: Color(0xFF7D73B5),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Text('129',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white)),
-                )),
-          ),
-        ],
-      ),
-    );
   }
 
   @override

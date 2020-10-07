@@ -11,6 +11,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -39,6 +40,56 @@ class _MyHomePageState extends State<MyHomePage> {
   int player2Handicap = 0;
 
   bool handicap = false;
+
+  List<Widget> handicapInput(phc, setval) {
+    return [
+      SizedBox(width: 10.00),
+      bigButton(
+          Text(
+            '+10',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          [const Color(0xffCCCACA), const Color(0xffA2A0A0)], () {
+        setval(10);
+      }),
+      SizedBox(width: 10.00),
+      bigButton(
+          Text(
+            '+1',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          [const Color(0xffCCCACA), const Color(0xffA2A0A0)], () {
+        setval(1);
+      }),
+      SizedBox(width: 10.00),
+      Text(
+        '$phc',
+        style: TextStyle(
+          fontFamily: 'Helvetica Neue',
+          fontSize: 22,
+        ),
+      ),
+      SizedBox(width: 10.00),
+      bigButton(
+          Text(
+            '-1',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          [const Color(0xffCCCACA), const Color(0xffA2A0A0)], () {
+        setval(-1);
+      }),
+      SizedBox(width: 10.00),
+      bigButton(
+          Text(
+            '-10',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          [const Color(0xffCCCACA), const Color(0xffA2A0A0)], () {
+        setval(-10);
+      }),
+      SizedBox(width: 10.00),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,6 +129,14 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
           ),
+          if (handicap)
+            Row(children: [
+              ...handicapInput(player1Handicap, (val) {
+                setState(() {
+                  player1Handicap += val;
+                });
+              })
+            ]),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
@@ -91,41 +150,13 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           if (handicap)
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                  keyboardType: TextInputType.number,
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
-                  ],
-                  decoration:
-                      InputDecoration(hintText: player1name + ' handicap'),
-                  onChanged: (String value) {
-                    setState(() {
-                      int newValue;
-                      newValue = int.parse(value);
-                      player1Handicap = newValue;
-                    });
-                  }),
-            ),
-          if (handicap)
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                  keyboardType: TextInputType.number,
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
-                  ],
-                  decoration:
-                      InputDecoration(hintText: player2name + ' handicap'),
-                  onChanged: (String value) {
-                    setState(() {
-                      int newValue;
-                      newValue = int.parse(value);
-                      player2Handicap = newValue;
-                    });
-                  }),
-            ),
+            Row(children: [
+              ...handicapInput(player2Handicap, (value) {
+                setState(() {
+                  player2Handicap += value;
+                });
+              })
+            ]),
           SizedBox(height: 15.00),
           Padding(
             padding: const EdgeInsets.all(8.0),
