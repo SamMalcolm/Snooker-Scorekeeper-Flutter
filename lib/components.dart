@@ -60,7 +60,7 @@ Widget returnScoreLine() {
         ),
         FractionallySizedBox(
           widthFactor: 1,
-          heightFactor: 0.2,
+          heightFactor: 0.32,
           child: Container(
               color: Color(0xFF7D73B5),
               child: Padding(

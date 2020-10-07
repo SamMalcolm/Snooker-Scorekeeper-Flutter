@@ -20,6 +20,33 @@ class _GameView extends State<GameView> {
   bool fb = false;
   bool init = false;
 
+  List<Widget> foulButtons() {
+    List<Widget> result = [];
+    for (int i = 4; i < 8; i++) {
+      result.add(bigButton(
+          Text('$i',
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontFamily: 'Helvetica Neue',
+                fontSize: 22,
+                color: Colors.white,
+              )),
+          [
+            const Color(0xffCCCACA),
+            const Color(0xffA2A0A0),
+          ], () {
+        setState(() {
+          foulInput = false;
+          game.foul(i);
+        });
+      }));
+      if (i != 7) {
+        result.add(SizedBox(width: 10.00));
+      }
+    }
+    return result;
+  }
+
   List scoringInput() {
     return [
       Padding(
@@ -187,79 +214,7 @@ class _GameView extends State<GameView> {
             ),
           if (foulInput)
             Row(
-              children: [
-                bigButton(
-                    Text('4',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontFamily: 'Helvetica Neue',
-                          fontSize: 22,
-                          color: Colors.white,
-                        )),
-                    [
-                      const Color(0xffCCCACA),
-                      const Color(0xffA2A0A0),
-                    ], () {
-                  setState(() {
-                    foulInput = false;
-                    game.foul(4);
-                  });
-                }),
-                SizedBox(width: 10.00),
-                bigButton(
-                    Text('5',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontFamily: 'Helvetica Neue',
-                          fontSize: 22,
-                          color: Colors.white,
-                        )),
-                    [
-                      const Color(0xffCCCACA),
-                      const Color(0xffA2A0A0),
-                    ], () {
-                  setState(() {
-                    foulInput = false;
-                    game.foul(5);
-                  });
-                }),
-                SizedBox(width: 10.00),
-                bigButton(
-                    Text('6',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontFamily: 'Helvetica Neue',
-                          fontSize: 22,
-                          color: Colors.white,
-                        )),
-                    [
-                      const Color(0xffCCCACA),
-                      const Color(0xffA2A0A0),
-                    ], () {
-                  setState(() {
-                    foulInput = false;
-                    game.foul(6);
-                  });
-                }),
-                SizedBox(width: 10.00),
-                bigButton(
-                    Text('7',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontFamily: 'Helvetica Neue',
-                          fontSize: 22,
-                          color: Colors.white,
-                        )),
-                    [
-                      const Color(0xffCCCACA),
-                      const Color(0xffA2A0A0),
-                    ], () {
-                  setState(() {
-                    foulInput = false;
-                    game.foul(7);
-                  });
-                }),
-              ],
+              children: [...foulButtons()],
             ),
           SizedBox(height: 10.00),
           Row(
