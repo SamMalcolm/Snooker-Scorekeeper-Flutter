@@ -130,6 +130,8 @@ class Game {
         currFrame.add("Y");
         break;
     }
+    calculatePointsRemaining();
+    getActivePlayer().updateScoreLine(pointsRemaining);
   }
 
   Game(playerNames, handicaps) {
