@@ -36,9 +36,13 @@ class Player {
       snookersRequired = 0;
     }
 
-    double srsl = ((pointsRemaining + score) / 2) + opponentsScore + 1;
+    double srsl = (maxScore / 2) + opponentsScore;
     snookersReqdScoreline = srsl.ceil();
-    snookersReqdFractionOfMax = srsl / maxScore;
+    if (snookersReqdScoreline > maxScore) {
+      snookersReqdFractionOfMax = 0;
+    } else {
+      snookersReqdFractionOfMax = srsl / maxScore;
+    }
   }
 
   Player(this.name, this.handicap) {

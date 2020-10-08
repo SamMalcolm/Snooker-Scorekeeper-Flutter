@@ -260,24 +260,6 @@ class _GameView extends State<GameView> {
           Row(
             children: [
               bigButton(
-                  Text('Free Ball',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontFamily: 'Helvetica Neue',
-                        fontSize: 22,
-                        color: Colors.white,
-                      )),
-                  freeBallInputColour(fb), () {
-                setState(() {
-                  fb = !fb;
-                });
-              })
-            ],
-          ),
-          SizedBox(height: 10.00),
-          Row(
-            children: [
-              bigButton(
                   Text('Undo',
                       textAlign: TextAlign.left,
                       style: TextStyle(
@@ -295,7 +277,7 @@ class _GameView extends State<GameView> {
               }),
               SizedBox(width: 10.00),
               bigButton(
-                  Text('Frame Conceded',
+                  Text('Conceded',
                       textAlign: TextAlign.left,
                       style: TextStyle(
                         fontFamily: 'Helvetica Neue',
@@ -329,6 +311,20 @@ class _GameView extends State<GameView> {
                   ], () {
                 setState(() {
                   game.passTurn();
+                });
+              }),
+              SizedBox(width: 10.00),
+              bigButton(
+                  Text('Free Ball',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontFamily: 'Helvetica Neue',
+                        fontSize: 22,
+                        color: Colors.white,
+                      )),
+                  freeBallInputColour(fb), () {
+                setState(() {
+                  fb = !fb;
                 });
               })
             ],
