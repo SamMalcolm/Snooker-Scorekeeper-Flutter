@@ -289,11 +289,13 @@ class _GameView extends State<GameView> {
                     const Color(0xffCCCACA),
                     const Color(0xffA2A0A0),
                   ], () {
-                print('pressed');
+                setState(() {
+                  game.undo();
+                });
               }),
               SizedBox(width: 10.00),
               bigButton(
-                  Text('Resign',
+                  Text('Frame Conceded',
                       textAlign: TextAlign.left,
                       style: TextStyle(
                         fontFamily: 'Helvetica Neue',
@@ -391,6 +393,17 @@ class _GameView extends State<GameView> {
                       : FontWeight.normal),
               textAlign: TextAlign.center,
             ),
+            if (game.players[0].snookersRequired > 0)
+              Text(
+                'Snookers: ${game.players[0].snookersRequired}',
+                style: TextStyle(
+                    fontFamily: 'Helvetica Neue',
+                    fontSize: 12,
+                    fontWeight: (game.players[0].active)
+                        ? FontWeight.bold
+                        : FontWeight.normal),
+                textAlign: TextAlign.center,
+              ),
           ]),
         ),
         Expanded(
@@ -457,6 +470,17 @@ class _GameView extends State<GameView> {
                       : FontWeight.normal),
               textAlign: TextAlign.center,
             ),
+            if (game.players[1].snookersRequired > 0)
+              Text(
+                'Snookers: ${game.players[1].snookersRequired}',
+                style: TextStyle(
+                    fontFamily: 'Helvetica Neue',
+                    fontSize: 12,
+                    fontWeight: (game.players[1].active)
+                        ? FontWeight.bold
+                        : FontWeight.normal),
+                textAlign: TextAlign.center,
+              ),
           ]),
         ),
       ]),
@@ -478,8 +502,12 @@ class _GameView extends State<GameView> {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          returnScoreLine(game.players[0].score,
-              game.players[0].scoreFractionOfMax, game.players[0].maxScore),
+          returnScoreLine(
+              game.players[0].score,
+              game.players[0].scoreFractionOfMax,
+              game.players[0].maxScore,
+              game.players[0].snookersReqdScoreline,
+              game.players[0].snookersReqdFractionOfMax),
           Expanded(
             child: SafeArea(
               child: Container(
@@ -496,8 +524,12 @@ class _GameView extends State<GameView> {
               ),
             ),
           ),
-          returnScoreLine(game.players[1].score,
-              game.players[1].scoreFractionOfMax, game.players[1].maxScore),
+          returnScoreLine(
+              game.players[1].score,
+              game.players[1].scoreFractionOfMax,
+              game.players[1].maxScore,
+              game.players[1].snookersReqdScoreline,
+              game.players[1].snookersReqdFractionOfMax),
           if (orientation == Orientation.landscape) SizedBox(width: 30.00)
         ],
       );

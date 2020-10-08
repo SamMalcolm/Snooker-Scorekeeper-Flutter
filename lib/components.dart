@@ -27,7 +27,8 @@ List<Color> freeBallInputColour(condition) {
   }
 }
 
-Widget returnScoreLine(score, scoreFractionOfMax, maxScore) {
+Widget returnScoreLine(score, scoreFractionOfMax, maxScore, snookersReqdLine,
+    snookersReqdFractionOfMax) {
   return Container(
     height: double.infinity,
     width: 35.00,
@@ -48,12 +49,12 @@ Widget returnScoreLine(score, scoreFractionOfMax, maxScore) {
         ),
         FractionallySizedBox(
           widthFactor: 1,
-          heightFactor: 0.5,
+          heightFactor: snookersReqdFractionOfMax,
           child: Container(
               color: Color(0xFFC3A164),
               child: Padding(
                 padding: const EdgeInsets.only(top: 8.0),
-                child: Text('129',
+                child: Text('$snookersReqdLine',
                     textAlign: TextAlign.center,
                     style: TextStyle(color: Colors.white)),
               )),

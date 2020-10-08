@@ -16,6 +16,7 @@ class Game {
   int pinksRemaining = 1;
   int blacksRemaining = 1;
   bool freeBall = false;
+  int minFoul = 4;
 
   void calculatePointsRemaining() {
     pointsRemaining = (8 * redsRemaining) +
@@ -53,6 +54,9 @@ class Game {
 
     Player a = getActivePlayer();
     a.foulPointsGiven += value;
+
+    p.updateScoreLine(pointsRemaining, a.score, minFoul);
+    a.updateScoreLine(pointsRemaining, p.score, minFoul);
   }
 
   Player getActivePlayer() {
@@ -94,6 +98,10 @@ class Game {
     for (int i = 0; i < players.length; i++) {
       players[i].score = players[i].handicap;
       players[i].currBreak = 0;
+      players[i].snookersRequired = 0;
+      players[i].maxScore = 147;
+      players[i].snookersReqdScoreline = 74;
+      players[i].updateScoreLine(147, 0, 4);
     }
 
     redsRemaining = 15;
@@ -176,11 +184,6 @@ class Game {
           print("LAST ACTION: ");
           print(currFrame[currFrame.length - 1]);
           blacksRemaining--;
-          if (players[1].score != players[0].score) {
-            endGame();
-          } else {
-            blacksRemaining++;
-          }
         }
         break;
     }
@@ -191,9 +194,30 @@ class Game {
     }
 
     calculatePointsRemaining();
-    ap.updateScoreLine(pointsRemaining);
+    Player ip = getInactivePlayer();
+
+    if (brownsRemaining == 0) {
+      minFoul = 5;
+    }
+    if (bluesRemaining == 0) {
+      minFoul = 6;
+    }
+    if (pinksRemaining == 0) {
+      minFoul = 7;
+    }
+
+    ap.updateScoreLine(pointsRemaining, ip.score, minFoul);
+    ip.updateScoreLine(pointsRemaining, ap.score, minFoul);
     if (ap.currBreak > ap.highestBreak) {
       ap.highestBreak = ap.currBreak;
+    }
+
+    if (blacksRemaining == 0) {
+      if (players[1].score != players[0].score) {
+        endGame();
+      } else {
+        blacksRemaining++;
+      }
     }
   }
 
