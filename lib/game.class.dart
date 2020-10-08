@@ -25,6 +25,11 @@ class Game {
         (5 * bluesRemaining) +
         (6 * pinksRemaining) +
         (7 * blacksRemaining);
+    if (currFrame.length > 0) {
+      if (currFrame[currFrame.length - 1] == "R") {
+        pointsRemaining += 7;
+      }
+    }
   }
 
   void incrementReds() {
@@ -64,6 +69,7 @@ class Game {
 
   void passTurn() {
     for (int i = 0; i < players.length; i++) {
+      players[i].currBreak = 0;
       if (players[i].active) {
         players[i].active = false;
       } else {
@@ -75,6 +81,7 @@ class Game {
 
   void endGame() {
     framesPlayed++;
+    currFrame.add("END");
     frames.add(currFrame);
     currFrame = [];
 
@@ -86,6 +93,7 @@ class Game {
 
     for (int i = 0; i < players.length; i++) {
       players[i].score = players[i].handicap;
+      players[i].currBreak = 0;
     }
 
     redsRemaining = 15;
@@ -98,40 +106,103 @@ class Game {
     calculatePointsRemaining();
   }
 
-  void pot(colour) {
+  void pot(colour, fb) {
+    Player ap = getActivePlayer();
     switch (colour) {
       case "R":
-        getActivePlayer().score++;
-        redsRemaining--;
-        currFrame.add("R");
+        ap.score++;
+        ap.currBreak++;
+        if (!fb) {
+          redsRemaining--;
+        }
         break;
       case "Y":
-        getActivePlayer().score += 2;
-        currFrame.add("Y");
+        ap.score += 2;
+        ap.currBreak += 2;
+        if (redsRemaining == 0 &&
+            !fb &&
+            (currFrame[currFrame.length - 1] != "R" &&
+                currFrame[currFrame.length - 1] != "R*")) {
+          yellowsRemaining--;
+        }
         break;
       case "G":
-        getActivePlayer().score += 3;
-        currFrame.add("Y");
+        ap.score += 3;
+        ap.currBreak += 3;
+        if (redsRemaining == 0 &&
+            !fb &&
+            (currFrame[currFrame.length - 1] != "R" &&
+                currFrame[currFrame.length - 1] != "R*")) {
+          greensRemaining--;
+        }
         break;
       case "br":
-        getActivePlayer().score += 4;
-        currFrame.add("Y");
+        ap.score += 4;
+        ap.currBreak += 4;
+        if (redsRemaining == 0 &&
+            !fb &&
+            (currFrame[currFrame.length - 1] != "R" &&
+                currFrame[currFrame.length - 1] != "R*")) {
+          brownsRemaining--;
+        }
         break;
       case "bl":
-        getActivePlayer().score += 5;
-        currFrame.add("Y");
+        ap.score += 5;
+        ap.currBreak += 5;
+        if (redsRemaining == 0 &&
+            !fb &&
+            (currFrame[currFrame.length - 1] != "R" &&
+                currFrame[currFrame.length - 1] != "R*")) {
+          bluesRemaining--;
+        }
         break;
       case "P":
-        getActivePlayer().score += 6;
-        currFrame.add("Y");
+        ap.score += 6;
+        ap.currBreak += 6;
+        if (redsRemaining == 0 &&
+            !fb &&
+            (currFrame[currFrame.length - 1] != "R" &&
+                currFrame[currFrame.length - 1] != "R*")) {
+          pinksRemaining--;
+        }
         break;
       case "B":
-        getActivePlayer().score += 7;
-        currFrame.add("Y");
+        ap.score += 7;
+        ap.currBreak += 7;
+        if (redsRemaining == 0 &&
+            !fb &&
+            (currFrame[currFrame.length - 1] != "R" &&
+                currFrame[currFrame.length - 1] != "R*")) {
+          print("LAST ACTION: ");
+          print(currFrame[currFrame.length - 1]);
+          blacksRemaining--;
+          if (players[1].score != players[0].score) {
+            endGame();
+          } else {
+            blacksRemaining++;
+          }
+        }
         break;
     }
+    if (!fb) {
+      currFrame.add(colour);
+    } else {
+      currFrame.add('$colour*');
+    }
+
     calculatePointsRemaining();
-    getActivePlayer().updateScoreLine(pointsRemaining);
+    ap.updateScoreLine(pointsRemaining);
+    if (ap.currBreak > ap.highestBreak) {
+      ap.highestBreak = ap.currBreak;
+    }
+  }
+
+  void undo() {
+    if (currFrame.length > 0) {
+      switch (currFrame[currFrame.length - 1]) {
+        // REEVERSE VARIOUS ACTIONS
+      }
+    }
   }
 
   Game(playerNames, handicaps) {

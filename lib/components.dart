@@ -27,7 +27,7 @@ List<Color> freeBallInputColour(condition) {
   }
 }
 
-Widget returnScoreLine() {
+Widget returnScoreLine(score, scoreFractionOfMax, maxScore) {
   return Container(
     height: double.infinity,
     width: 35.00,
@@ -41,7 +41,7 @@ Widget returnScoreLine() {
               color: Color(0xFFCCCCCC),
               child: Padding(
                 padding: const EdgeInsets.only(top: 36.0),
-                child: Text('129',
+                child: Text('$maxScore',
                     textAlign: TextAlign.center,
                     style: TextStyle(color: Colors.black)),
               )),
@@ -60,12 +60,12 @@ Widget returnScoreLine() {
         ),
         FractionallySizedBox(
           widthFactor: 1,
-          heightFactor: 0.32,
+          heightFactor: scoreFractionOfMax,
           child: Container(
               color: Color(0xFF7D73B5),
               child: Padding(
                 padding: const EdgeInsets.only(top: 8.0),
-                child: Text('129',
+                child: Text('$score',
                     textAlign: TextAlign.center,
                     style: TextStyle(color: Colors.white)),
               )),
