@@ -100,16 +100,16 @@ class _MyHomePageState extends State<MyHomePage> {
           Stack(
             alignment: Alignment.bottomLeft,
             children: [
-              Image(image: AssetImage('images/snooker.jpg')),
+              Image(image: AssetImage('images/table.jpg')),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(12.0),
                 child: Text(
                   'Snooker Scorer',
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     fontFamily: 'Helvetica Neue',
                     fontWeight: FontWeight.bold,
-                    fontSize: 22,
+                    fontSize: 36,
                     color: Colors.white,
                   ),
                 ),
