@@ -37,33 +37,34 @@ class Player {
     }
 
     int scoringPoints = 1;
-    int pottentialScore = score;
-    int pottentialPointsRemaining = pointsRemaining;
-
-    while (true) {
-      print("IN LOOP");
-      pottentialScore += scoringPoints;
-      pottentialPointsRemaining -= scoringPoints;
-      if (opponentsScore + pottentialPointsRemaining < score) {
-        snookersReqdScoreline = pottentialScore;
-        break;
-      } else {
-        scoringPoints++;
+    if (snookersRequired > 0) {
+      while (true) {
+        print("IN LOOP");
+        int pottentialScore = score;
+        int pottentialPointsRemaining = pointsRemaining;
+        pottentialScore += scoringPoints;
+        pottentialPointsRemaining -= scoringPoints;
+        if (opponentsScore + pottentialPointsRemaining < pottentialScore) {
+          snookersReqdScoreline = pottentialScore;
+          break;
+        } else {
+          scoringPoints++;
+        }
+        if (scoringPoints >= pointsRemaining) {
+          snookersReqdFractionOfMax = 0;
+          break;
+        }
       }
-      if (scoringPoints >= pointsRemaining) {
-        snookersReqdFractionOfMax = 0;
-        break;
-      }
+    } else {
+      snookersReqdFractionOfMax = 0;
     }
     snookersReqdFractionOfMax = snookersReqdScoreline / maxScore;
 
     // double srsl = (maxScore / 2) + opponentsScore;
     // snookersReqdScoreline = srsl.ceil();
-    // if (snookersReqdScoreline > maxScore) {
-    //   snookersReqdFractionOfMax = 0;
-    // } else {
-    //   snookersReqdFractionOfMax = srsl / maxScore;
-    // }
+    if (snookersReqdScoreline > maxScore) {
+      snookersReqdFractionOfMax = 0;
+    }
   }
 
   Player(this.name, this.handicap) {
