@@ -31,18 +31,39 @@ class Player {
 
     if (maxScore < opponentsScore) {
       double sr = (opponentsScore - maxScore) / minFoul;
-      snookersRequired = sr.round();
+      snookersRequired = sr.ceil();
     } else {
       snookersRequired = 0;
     }
 
-    double srsl = (maxScore / 2) + opponentsScore;
-    snookersReqdScoreline = srsl.ceil();
-    if (snookersReqdScoreline > maxScore) {
-      snookersReqdFractionOfMax = 0;
-    } else {
-      snookersReqdFractionOfMax = srsl / maxScore;
+    int scoringPoints = 1;
+    int pottentialScore = score;
+    int pottentialPointsRemaining = pointsRemaining;
+
+    while (true) {
+      print("IN LOOP");
+      pottentialScore += scoringPoints;
+      pottentialPointsRemaining -= scoringPoints;
+      if (opponentsScore + pottentialPointsRemaining < score) {
+        snookersReqdScoreline = pottentialScore;
+        break;
+      } else {
+        scoringPoints++;
+      }
+      if (scoringPoints >= pointsRemaining) {
+        snookersReqdFractionOfMax = 0;
+        break;
+      }
     }
+    snookersReqdFractionOfMax = snookersReqdScoreline / maxScore;
+
+    // double srsl = (maxScore / 2) + opponentsScore;
+    // snookersReqdScoreline = srsl.ceil();
+    // if (snookersReqdScoreline > maxScore) {
+    //   snookersReqdFractionOfMax = 0;
+    // } else {
+    //   snookersReqdFractionOfMax = srsl / maxScore;
+    // }
   }
 
   Player(this.name, this.handicap) {
