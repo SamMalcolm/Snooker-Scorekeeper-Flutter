@@ -101,8 +101,23 @@ class _MyHomePageState extends State<MyHomePage> {
             alignment: Alignment.bottomLeft,
             children: [
               Image(image: AssetImage('images/table.jpg')),
+              Container(
+                  padding: EdgeInsets.all(5.0),
+                  height: 150.00,
+                  alignment: Alignment.bottomCenter,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: <Color>[
+                        Colors.black.withAlpha(0),
+                        Colors.black26,
+                        Colors.black87
+                      ],
+                    ),
+                  )),
               Padding(
-                padding: const EdgeInsets.all(12.0),
+                padding: const EdgeInsets.all(16.0),
                 child: Text(
                   'Snooker Scorer',
                   textAlign: TextAlign.left,
@@ -118,7 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           SizedBox(height: 15.00),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(16.0),
             child: TextField(
               decoration: InputDecoration(hintText: 'Player 1 Name'),
               onChanged: (String value) {
@@ -138,7 +153,7 @@ class _MyHomePageState extends State<MyHomePage> {
               })
             ]),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(16.0),
             child: TextField(
               decoration: InputDecoration(hintText: 'Player 2 Name'),
               onChanged: (String value) {
@@ -159,7 +174,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ]),
           SizedBox(height: 15.00),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(16.0),
             child: Row(children: [
               bigButton(
                   Text('Handicap',
@@ -177,7 +192,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ]),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(left: 16.0, right: 16.0),
             child: Row(children: [
               bigButton(
                   Text('Start Game',
