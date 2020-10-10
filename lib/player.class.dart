@@ -39,7 +39,6 @@ class Player {
     int scoringPoints = 1;
     if (snookersRequired > 0) {
       while (true) {
-        print("IN LOOP");
         int pottentialScore = score;
         int pottentialPointsRemaining = pointsRemaining;
         pottentialScore += scoringPoints;
