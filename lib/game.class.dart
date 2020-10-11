@@ -234,11 +234,12 @@ class Game {
       for (int i = 0; i < balls.length; i++) {
         if (lastAction.contains(balls[i]['code']) &&
             !lastAction.contains("T")) {
+          print("BALL ACTION");
+          print(balls[i]['code']);
           ap.score -= balls[i]['value'];
           if (!lastAction.contains('*')) {
             if (balls[i]['code'].contains("R")) {
               redsRemaining++;
-              calculatePointsRemaining();
             } else if (redsRemaining == 0) {
               if (balls[i]['code'].contains("Y")) {
                 yellowsRemaining = 1;
@@ -260,44 +261,38 @@ class Game {
               }
             }
           }
+          calculatePointsRemaining();
           return;
         }
-
-        switch (lastAction) {
-          case "PT":
-            passTurn();
-            currFrame.removeLast();
-            break;
-          case "F4":
-            ip.score -= 4;
-            ip.foulPointsRecieved -= 4;
-            ap.foulPointsGiven -= 4;
-            calculatePointsRemaining();
-            currFrame.removeLast();
-            break;
-          case "F5":
-            ip.score -= 5;
-            ip.foulPointsRecieved -= 5;
-            ap.foulPointsGiven -= 5;
-            calculatePointsRemaining();
-            currFrame.removeLast();
-            break;
-          case "F6":
-            ip.score -= 6;
-            ip.foulPointsRecieved -= 6;
-            ap.foulPointsGiven -= 6;
-            calculatePointsRemaining();
-            currFrame.removeLast();
-            break;
-          case "F7":
-            ip.score -= 7;
-            ip.foulPointsRecieved -= 7;
-            ap.foulPointsGiven -= 7;
-            calculatePointsRemaining();
-            currFrame.removeLast();
-            break;
-        }
       }
+
+      switch (lastAction) {
+        case "PT":
+          passTurn();
+          currFrame.removeLast();
+          break;
+        case "F4":
+          ip.score -= 4;
+          ip.foulPointsRecieved -= 4;
+          ap.foulPointsGiven -= 4;
+          break;
+        case "F5":
+          ip.score -= 5;
+          ip.foulPointsRecieved -= 5;
+          ap.foulPointsGiven -= 5;
+          break;
+        case "F6":
+          ip.score -= 6;
+          ip.foulPointsRecieved -= 6;
+          ap.foulPointsGiven -= 6;
+          break;
+        case "F7":
+          ip.score -= 7;
+          ip.foulPointsRecieved -= 7;
+          ap.foulPointsGiven -= 7;
+          break;
+      }
+      calculatePointsRemaining();
     }
   }
 
