@@ -93,131 +93,147 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Stack(
-            alignment: Alignment.bottomLeft,
-            children: [
-              Image(image: AssetImage('images/table.jpg')),
-              Container(
-                  padding: EdgeInsets.all(5.0),
-                  height: 150.00,
-                  alignment: Alignment.bottomCenter,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: <Color>[
-                        Colors.black.withAlpha(0),
-                        Colors.black26,
-                        Colors.black87
-                      ],
-                    ),
-                  )),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  'Snooker Scorer',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontFamily: 'Helvetica Neue',
-                    fontWeight: FontWeight.bold,
-                    fontSize: 36,
-                    color: Colors.white,
+    return Scaffold(body: OrientationBuilder(builder: (context, orientation) {
+      return SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Stack(
+              alignment: Alignment.bottomLeft,
+              children: [
+                Container(
+                  height:
+                      (orientation == Orientation.landscape) ? 100.00 : 250.00,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        alignment: Alignment.topCenter,
+                        image: AssetImage('images/table.jpg'),
+                        fit: BoxFit.cover),
                   ),
                 ),
-              )
-            ],
-          ),
-          SizedBox(height: 15.00),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: TextField(
-              decoration: InputDecoration(hintText: 'Player 1 Name'),
-              onChanged: (String value) {
-                setState(() {
-                  value = (value != "") ? value : "Player 1";
-                  player1name = value;
-                });
-              },
+                Container(
+                    padding: EdgeInsets.all(5.0),
+                    height: (orientation == Orientation.landscape)
+                        ? 100.00
+                        : 250.00,
+                    alignment: Alignment.bottomCenter,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: <Color>[
+                          Colors.black.withAlpha(0),
+                          Colors.black26,
+                          Colors.black87
+                        ],
+                      ),
+                    )),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    'Snooker Scorer',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontFamily: 'Helvetica Neue',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 36,
+                      color: Colors.white,
+                    ),
+                  ),
+                )
+              ],
             ),
-          ),
-          if (handicap)
-            Row(children: [
-              ...handicapInput(player1Handicap, (val) {
-                setState(() {
-                  player1Handicap += val;
-                });
-              })
-            ]),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: TextField(
-              decoration: InputDecoration(hintText: 'Player 2 Name'),
-              onChanged: (String value) {
-                setState(() {
-                  value = (value != "") ? value : "Player 2";
-                  player2name = value;
-                });
-              },
-            ),
-          ),
-          if (handicap)
-            Row(children: [
-              ...handicapInput(player2Handicap, (value) {
-                setState(() {
-                  player2Handicap += value;
-                });
-              })
-            ]),
-          SizedBox(height: 15.00),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(children: [
-              bigButton(
-                  Text('Handicap',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontFamily: 'Helvetica Neue',
-                        fontSize: 22,
-                        color: Colors.white,
-                      )),
-                  freeBallInputColour(handicap), () {
-                setState(() {
-                  handicap = !handicap;
-                });
-              }),
-            ]),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-            child: Row(children: [
-              bigButton(
-                  Text('Start Game',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontFamily: 'Helvetica Neue',
-                        fontSize: 22,
-                        color: Colors.white,
-                      )),
-                  [
-                    const Color(0xff4CA256),
-                    const Color(0xff397140),
-                  ], () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => GameView(
-                          playerNames: [player1name, player2name],
-                          playerHandicaps: [player1Handicap, player2Handicap]),
-                    ));
-              }),
-            ]),
-          ),
-        ],
-      ),
-    );
+            Padding(
+              padding: EdgeInsets.all(
+                  (orientation == Orientation.landscape) ? 40.00 : 16.00),
+              child: Column(children: [
+                SizedBox(height: 15.00),
+                TextField(
+                  decoration: InputDecoration(hintText: 'Player 1 Name'),
+                  onChanged: (String value) {
+                    setState(() {
+                      value = (value != "") ? value : "Player 1";
+                      player1name = value;
+                    });
+                  },
+                ),
+                SizedBox(height: 15.00),
+                if (handicap)
+                  Row(children: [
+                    ...handicapInput(player1Handicap, (val) {
+                      setState(() {
+                        player1Handicap += val;
+                      });
+                    }),
+                    SizedBox(height: 15.00),
+                  ]),
+                TextField(
+                  decoration: InputDecoration(hintText: 'Player 2 Name'),
+                  onChanged: (String value) {
+                    setState(() {
+                      value = (value != "") ? value : "Player 2";
+                      player2name = value;
+                    });
+                  },
+                ),
+                SizedBox(height: 15.00),
+                if (handicap)
+                  Row(children: [
+                    ...handicapInput(player2Handicap, (value) {
+                      setState(() {
+                        player2Handicap += value;
+                      });
+                    }),
+                    SizedBox(height: 15.00),
+                  ]),
+                SizedBox(height: 15.00),
+                Row(children: [
+                  bigButton(
+                      Text('Handicap',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            fontFamily: 'Helvetica Neue',
+                            fontSize: 22,
+                            color: Colors.white,
+                          )),
+                      freeBallInputColour(handicap), () {
+                    setState(() {
+                      handicap = !handicap;
+                    });
+                  }),
+                ]),
+                SizedBox(height: 15.00),
+                Row(children: [
+                  bigButton(
+                      Text('Start Game',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            fontFamily: 'Helvetica Neue',
+                            fontSize: 22,
+                            color: Colors.white,
+                          )),
+                      [
+                        const Color(0xff4CA256),
+                        const Color(0xff397140),
+                      ], () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => GameView(playerNames: [
+                            player1name,
+                            player2name
+                          ], playerHandicaps: [
+                            player1Handicap,
+                            player2Handicap
+                          ]),
+                        ));
+                  }),
+                ]),
+              ]),
+            )
+          ],
+        ),
+      );
+    }));
   }
 }

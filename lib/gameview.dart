@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'game.class.dart';
 // import 'package:flutter/src/widgets/framework.dart';
 import 'components.dart';
+import 'blurryDialog.dart';
+import 'main.dart';
 
 class GameView extends StatefulWidget {
   GameView({Key key, this.playerNames, this.playerHandicaps}) : super(key: key);
@@ -47,195 +49,220 @@ class _GameView extends State<GameView> {
     return result;
   }
 
-  List scoringInput() {
+  List scoringInput(context) {
     return [
       Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(children: [
-          Row(children: [
-            bigButton(
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('+1',
+          padding: const EdgeInsets.all(24.0),
+          child: Column(children: [
+            Row(children: [
+              bigButton(
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('+1',
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              fontFamily: 'Helvetica Neue',
+                              fontSize: 22,
+                              color: Colors.white,
+                            )),
+                        Container(),
+                        Text('${game.redsRemaining}',
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              fontFamily: 'Helvetica Neue',
+                              fontSize: 22,
+                              color: Colors.white,
+                            )),
+                      ]),
+                  [
+                    const Color(0xffC72D2D),
+                    const Color(0xff9D2C2C),
+                  ],
+                  (game.redsRemaining > 0)
+                      ? () {
+                          setState(() {
+                            game.pot("R", fb);
+                            fb = false;
+                          });
+                        }
+                      : null),
+              SizedBox(width: 10.00),
+              Expanded(
+                  child: Row(
+                children: [
+                  bigButton(
+                      Text('+',
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             fontFamily: 'Helvetica Neue',
                             fontSize: 22,
                             color: Colors.white,
                           )),
-                      Container(),
-                      Text('${game.redsRemaining}',
+                      [
+                        const Color(0xffC72D2D),
+                        const Color(0xff9D2C2C),
+                      ], () {
+                    setState(() {
+                      game.incrementReds();
+                    });
+                  }),
+                  SizedBox(width: 10.00),
+                  bigButton(
+                      Text('-',
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             fontFamily: 'Helvetica Neue',
                             fontSize: 22,
                             color: Colors.white,
                           )),
-                    ]),
-                [
-                  const Color(0xffC72D2D),
-                  const Color(0xff9D2C2C),
+                      [
+                        const Color(0xffC72D2D),
+                        const Color(0xff9D2C2C),
+                      ], () {
+                    setState(() {
+                      game.decrementReds();
+                    });
+                  }),
                 ],
-                (game.redsRemaining > 0)
-                    ? () {
-                        setState(() {
-                          game.pot("R", fb);
-                          fb = false;
-                        });
-                      }
-                    : null),
-            SizedBox(width: 10.00),
-            Expanded(
-                child: Row(
-              children: [
-                bigButton(
-                    Text('+',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontFamily: 'Helvetica Neue',
-                          fontSize: 22,
-                          color: Colors.white,
-                        )),
-                    [
-                      const Color(0xffC72D2D),
-                      const Color(0xff9D2C2C),
-                    ], () {
-                  setState(() {
-                    game.incrementReds();
-                  });
-                }),
-                SizedBox(width: 10.00),
-                bigButton(
-                    Text('-',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontFamily: 'Helvetica Neue',
-                          fontSize: 22,
-                          color: Colors.white,
-                        )),
-                    [
-                      const Color(0xffC72D2D),
-                      const Color(0xff9D2C2C),
-                    ], () {
-                  setState(() {
-                    game.decrementReds();
-                  });
-                }),
-              ],
-            ))
-          ]),
+              ))
+            ]),
 
-          //
+            //
 
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0),
-            child: Row(
-              children: [
-                ballButton(
-                    '+2',
-                    [
-                      const Color(0xffE0C534),
-                      const Color(0xffCEB636),
-                    ],
-                    (game.yellowsRemaining > 0)
-                        ? () {
-                            setState(() {
-                              game.pot("Y", fb);
-                              fb = false;
-                            });
-                          }
-                        : null),
-                SizedBox(width: 10.00),
-                ballButton(
-                    '+3',
-                    [
-                      const Color(0xff4CA256),
-                      const Color(0xff397140),
-                    ],
-                    (game.greensRemaining > 0)
-                        ? () {
-                            setState(() {
-                              game.pot("G", fb);
-                              fb = false;
-                            });
-                          }
-                        : null),
-                SizedBox(width: 10.00),
-                ballButton(
-                    '+4',
-                    [
-                      const Color(0xffB48247),
-                      const Color(0xff694A20),
-                    ],
-                    (game.brownsRemaining > 0)
-                        ? () {
-                            setState(() {
-                              game.pot("br", fb);
-                              fb = false;
-                            });
-                          }
-                        : null),
-              ],
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Row(
+                children: [
+                  ballButton(
+                      '+2',
+                      [
+                        const Color(0xffE0C534),
+                        const Color(0xffCEB636),
+                      ],
+                      (game.yellowsRemaining > 0)
+                          ? () {
+                              setState(() {
+                                game.pot("Y", fb);
+                                fb = false;
+                              });
+                            }
+                          : null),
+                  SizedBox(width: 10.00),
+                  ballButton(
+                      '+3',
+                      [
+                        const Color(0xff4CA256),
+                        const Color(0xff397140),
+                      ],
+                      (game.greensRemaining > 0)
+                          ? () {
+                              setState(() {
+                                game.pot("G", fb);
+                                fb = false;
+                              });
+                            }
+                          : null),
+                  SizedBox(width: 10.00),
+                  ballButton(
+                      '+4',
+                      [
+                        const Color(0xffB48247),
+                        const Color(0xff694A20),
+                      ],
+                      (game.brownsRemaining > 0)
+                          ? () {
+                              setState(() {
+                                game.pot("br", fb);
+                                fb = false;
+                              });
+                            }
+                          : null),
+                ],
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0),
-            child: Row(
-              children: [
-                ballButton(
-                    '+5',
-                    [
-                      const Color(0xff5271D6),
-                      const Color(0xff2F4EB4),
-                    ],
-                    (game.bluesRemaining > 0)
-                        ? () {
-                            setState(() {
-                              game.pot("bl", fb);
-                              fb = false;
-                            });
-                          }
-                        : null),
-                SizedBox(width: 10.00),
-                ballButton(
-                    '+6',
-                    [
-                      const Color(0xffE066BA),
-                      const Color(0xff9B3D9B),
-                    ],
-                    (game.pinksRemaining > 0)
-                        ? () {
-                            setState(() {
-                              game.pot("P", fb);
-                              fb = false;
-                            });
-                          }
-                        : null),
-                SizedBox(width: 10.00),
-                ballButton(
-                    '+7',
-                    [
-                      const Color(0xff393939),
-                      const Color(0xff0B0B0B),
-                    ],
-                    (game.blacksRemaining > 0)
-                        ? () {
-                            setState(() {
-                              game.pot("B", fb);
-                              fb = false;
-                            });
-                          }
-                        : null),
-              ],
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Row(
+                children: [
+                  ballButton(
+                      '+5',
+                      [
+                        const Color(0xff5271D6),
+                        const Color(0xff2F4EB4),
+                      ],
+                      (game.bluesRemaining > 0)
+                          ? () {
+                              setState(() {
+                                game.pot("bl", fb);
+                                fb = false;
+                              });
+                            }
+                          : null),
+                  SizedBox(width: 10.00),
+                  ballButton(
+                      '+6',
+                      [
+                        const Color(0xffE066BA),
+                        const Color(0xff9B3D9B),
+                      ],
+                      (game.pinksRemaining > 0)
+                          ? () {
+                              setState(() {
+                                game.pot("P", fb);
+                                fb = false;
+                              });
+                            }
+                          : null),
+                  SizedBox(width: 10.00),
+                  ballButton(
+                      '+7',
+                      [
+                        const Color(0xff393939),
+                        const Color(0xff0B0B0B),
+                      ],
+                      (game.blacksRemaining > 0)
+                          ? () {
+                              setState(() {
+                                game.pot("B", fb);
+                                fb = false;
+                              });
+                            }
+                          : null),
+                ],
+              ),
             ),
-          ),
-          SizedBox(height: 10.00),
-          if (!foulInput)
+            SizedBox(height: 10.00),
+            if (!foulInput)
+              Row(
+                children: [
+                  bigButton(
+                      Text('Foul',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            fontFamily: 'Helvetica Neue',
+                            fontSize: 22,
+                            color: Colors.white,
+                          )),
+                      [
+                        const Color(0xffCCCACA),
+                        const Color(0xffA2A0A0),
+                      ], () {
+                    setState(() {
+                      foulInput = true;
+                    });
+                  })
+                ],
+              ),
+            if (foulInput)
+              Row(
+                children: [...foulButtons()],
+              ),
+            SizedBox(height: 10.00),
             Row(
               children: [
                 bigButton(
-                    Text('Foul',
+                    Text('Undo',
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           fontFamily: 'Helvetica Neue',
@@ -247,20 +274,70 @@ class _GameView extends State<GameView> {
                       const Color(0xffA2A0A0),
                     ], () {
                   setState(() {
-                    foulInput = true;
+                    game.undo();
+                  });
+                }),
+                SizedBox(width: 10.00),
+                bigButton(
+                    Text('Concede',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontFamily: 'Helvetica Neue',
+                          fontSize: 22,
+                          color: Colors.white,
+                        )),
+                    [
+                      const Color(0xffCCCACA),
+                      const Color(0xffA2A0A0),
+                    ], () {
+                  _showDialog(context, () {
+                    setState(() {
+                      game.endGame();
+                    });
+                  }, "Concede Frame?",
+                      "Are you sure you to end this frame? It will be awarded to the player with the most points and cannot be un-done");
+                }),
+              ],
+            ),
+            SizedBox(height: 10.00),
+            Row(
+              children: [
+                bigButton(
+                    Text('Pass Turn',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontFamily: 'Helvetica Neue',
+                          fontSize: 22,
+                          color: Colors.white,
+                        )),
+                    [
+                      const Color(0xffCCCACA),
+                      const Color(0xffA2A0A0),
+                    ], () {
+                  setState(() {
+                    game.passTurn();
+                  });
+                }),
+                SizedBox(width: 10.00),
+                bigButton(
+                    Text('Free Ball',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontFamily: 'Helvetica Neue',
+                          fontSize: 22,
+                          color: Colors.white,
+                        )),
+                    freeBallInputColour(fb), () {
+                  setState(() {
+                    fb = !fb;
                   });
                 })
               ],
             ),
-          if (foulInput)
-            Row(
-              children: [...foulButtons()],
-            ),
-          SizedBox(height: 10.00),
-          Row(
-            children: [
+            SizedBox(height: 10.00),
+            Row(children: [
               bigButton(
-                  Text('Undo',
+                  Text('End Match',
                       textAlign: TextAlign.left,
                       style: TextStyle(
                         fontFamily: 'Helvetica Neue',
@@ -271,66 +348,17 @@ class _GameView extends State<GameView> {
                     const Color(0xffCCCACA),
                     const Color(0xffA2A0A0),
                   ], () {
-                setState(() {
-                  game.undo();
-                });
+                _showDialog(context, () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MyHomePage(),
+                      ));
+                }, "End the Match?",
+                    "Are you sure you want to end the match and exit to tthe home screen? this cannot be un-done");
               }),
-              SizedBox(width: 10.00),
-              bigButton(
-                  Text('Conceded',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontFamily: 'Helvetica Neue',
-                        fontSize: 22,
-                        color: Colors.white,
-                      )),
-                  [
-                    const Color(0xffCCCACA),
-                    const Color(0xffA2A0A0),
-                  ], () {
-                setState(() {
-                  game.endGame();
-                });
-              })
-            ],
-          ),
-          SizedBox(height: 10.00),
-          Row(
-            children: [
-              bigButton(
-                  Text('Pass Turn',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontFamily: 'Helvetica Neue',
-                        fontSize: 22,
-                        color: Colors.white,
-                      )),
-                  [
-                    const Color(0xffCCCACA),
-                    const Color(0xffA2A0A0),
-                  ], () {
-                setState(() {
-                  game.passTurn();
-                });
-              }),
-              SizedBox(width: 10.00),
-              bigButton(
-                  Text('Free Ball',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontFamily: 'Helvetica Neue',
-                        fontSize: 22,
-                        color: Colors.white,
-                      )),
-                  freeBallInputColour(fb), () {
-                setState(() {
-                  fb = !fb;
-                });
-              })
-            ],
-          ),
-        ]),
-      )
+            ]),
+          ]))
     ];
   }
 
@@ -498,12 +526,7 @@ class _GameView extends State<GameView> {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          returnScoreLine(
-              game.players[0].score,
-              game.players[0].scoreFractionOfMax,
-              game.players[0].maxScore,
-              game.players[0].snookersReqdScoreline,
-              game.players[0].snookersReqdFractionOfMax),
+          returnScoreLine(game.players[0]),
           Expanded(
             child: SafeArea(
               child: Container(
@@ -513,22 +536,30 @@ class _GameView extends State<GameView> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       ...scoreBoard(),
-                      ...scoringInput(),
+                      ...scoringInput(context),
                     ],
                   ),
                 ),
               ),
             ),
           ),
-          returnScoreLine(
-              game.players[1].score,
-              game.players[1].scoreFractionOfMax,
-              game.players[1].maxScore,
-              game.players[1].snookersReqdScoreline,
-              game.players[1].snookersReqdFractionOfMax),
+          returnScoreLine(game.players[1]),
           if (orientation == Orientation.landscape) SizedBox(width: 30.00)
         ],
       );
     }));
   }
+}
+
+_showDialog(BuildContext context, contCallBack, title, message) {
+  VoidCallback continueCallBack =
+      () => {Navigator.of(context).pop(), contCallBack()};
+  BlurryDialog alert = BlurryDialog(title, message, continueCallBack);
+
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }
