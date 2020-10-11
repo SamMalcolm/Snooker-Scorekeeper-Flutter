@@ -156,7 +156,7 @@ Widget ballButton(text, gradientValues, cb) {
               stops: [0.0, 1.0],
             ),
           ),
-          child: RawMaterialButton(
+          child: MaterialButton(
               onPressed: cb,
               child: Text('$text',
                   textAlign: TextAlign.left,

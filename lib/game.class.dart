@@ -226,6 +226,9 @@ class Game {
     Player ap = getActivePlayer();
 
     if (currFrame.length > 0) {
+      print("REVERSEING");
+      print(currFrame.last);
+
       String lastAction = currFrame.removeLast();
 
       for (int i = 0; i < balls.length; i++) {
