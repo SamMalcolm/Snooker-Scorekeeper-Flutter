@@ -526,7 +526,8 @@ class _GameView extends State<GameView> {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          returnScoreLine(game.players[0]),
+          returnScoreLine(game.players[0],
+              (orientation == Orientation.landscape) ? 100.00 : 35.00),
           Expanded(
             child: SafeArea(
               child: Container(
@@ -543,8 +544,8 @@ class _GameView extends State<GameView> {
               ),
             ),
           ),
-          returnScoreLine(game.players[1]),
-          if (orientation == Orientation.landscape) SizedBox(width: 30.00)
+          returnScoreLine(game.players[1],
+              (orientation == Orientation.landscape) ? 100.00 : 35.00)
         ],
       );
     }));

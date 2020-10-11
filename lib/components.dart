@@ -95,10 +95,10 @@ List<Color> freeBallInputColour(condition) {
   }
 }
 
-Widget returnScoreLine(player) {
+Widget returnScoreLine(player, width) {
   return Container(
     height: double.infinity,
-    width: 35.00,
+    width: width,
     child: Stack(
       alignment: Alignment.bottomCenter,
       children: [
