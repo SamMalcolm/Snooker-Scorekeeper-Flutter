@@ -223,9 +223,14 @@ class Game {
 
   void undo() {
     if (currFrame.length > 0) {
-      switch (currFrame[currFrame.length - 1]) {
-        // REEVERSE VARIOUS ACTIONS
+      String lastAction = currFrame.removeLast();
+      switch (lastAction) {
+        case "PT":
+          passTurn();
+          currFrame.removeLast();
       }
+    } else {
+      return null;
     }
   }
 
