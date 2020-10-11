@@ -114,6 +114,7 @@ class Game {
     bluesRemaining = 1;
     pinksRemaining = 1;
     blacksRemaining = 1;
+    minFoul = 4;
     calculatePointsRemaining();
   }
 
@@ -184,8 +185,6 @@ class Game {
             !fb &&
             (currFrame[currFrame.length - 1] != "R" &&
                 currFrame[currFrame.length - 1] != "R*")) {
-          print("LAST ACTION: ");
-          print(currFrame[currFrame.length - 1]);
           blacksRemaining--;
         }
         break;
@@ -226,16 +225,11 @@ class Game {
     Player ap = getActivePlayer();
 
     if (currFrame.length > 0) {
-      print("REVERSEING");
-      print(currFrame.last);
-
       String lastAction = currFrame.removeLast();
 
       for (int i = 0; i < balls.length; i++) {
         if (lastAction.contains(balls[i]['code']) &&
             !lastAction.contains("T")) {
-          print("BALL ACTION");
-          print(balls[i]['code']);
           ap.score -= balls[i]['value'];
           if (!lastAction.contains('*')) {
             if (balls[i]['code'].contains("R")) {
