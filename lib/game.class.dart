@@ -1,4 +1,5 @@
 import 'player.class.dart';
+import 'components.dart';
 
 class Game {
   List players = [];
@@ -31,6 +32,10 @@ class Game {
         pointsRemaining += 7;
       }
     }
+    Player p = getInactivePlayer();
+    Player a = getActivePlayer();
+    p.updateScoreLine(pointsRemaining, a.score, minFoul);
+    a.updateScoreLine(pointsRemaining, p.score, minFoul);
   }
 
   void incrementReds() {
@@ -55,8 +60,7 @@ class Game {
     Player a = getActivePlayer();
     a.foulPointsGiven += value;
 
-    p.updateScoreLine(pointsRemaining, a.score, minFoul);
-    a.updateScoreLine(pointsRemaining, p.score, minFoul);
+    calculatePointsRemaining();
   }
 
   Player getActivePlayer() {
@@ -101,7 +105,6 @@ class Game {
       players[i].snookersRequired = 0;
       players[i].maxScore = 147;
       players[i].snookersReqdScoreline = 74;
-      players[i].updateScoreLine(147, 0, 4);
     }
 
     redsRemaining = 15;
@@ -193,9 +196,6 @@ class Game {
       currFrame.add('$colour*');
     }
 
-    calculatePointsRemaining();
-    Player ip = getInactivePlayer();
-
     if (brownsRemaining == 0) {
       minFoul = 5;
     }
@@ -206,11 +206,11 @@ class Game {
       minFoul = 7;
     }
 
-    ap.updateScoreLine(pointsRemaining, ip.score, minFoul);
-    ip.updateScoreLine(pointsRemaining, ap.score, minFoul);
     if (ap.currBreak > ap.highestBreak) {
       ap.highestBreak = ap.currBreak;
     }
+
+    calculatePointsRemaining();
 
     if (blacksRemaining == 0) {
       if (players[1].score != players[0].score) {
@@ -222,15 +222,79 @@ class Game {
   }
 
   void undo() {
+    Player ip = getInactivePlayer();
+    Player ap = getActivePlayer();
+
     if (currFrame.length > 0) {
       String lastAction = currFrame.removeLast();
-      switch (lastAction) {
-        case "PT":
-          passTurn();
-          currFrame.removeLast();
+
+      for (int i = 0; i < balls.length; i++) {
+        if (lastAction.contains(balls[i]['code']) &&
+            !lastAction.contains("T")) {
+          ap.score -= balls[i]['value'];
+          if (!lastAction.contains('*')) {
+            if (balls[i]['code'].contains("R")) {
+              redsRemaining++;
+              calculatePointsRemaining();
+            } else if (redsRemaining == 0) {
+              if (balls[i]['code'].contains("Y")) {
+                yellowsRemaining = 1;
+              }
+              if (balls[i]['code'].contains("G")) {
+                greensRemaining = 1;
+              }
+              if (balls[i]['code'].contains("br")) {
+                brownsRemaining = 1;
+              }
+              if (balls[i]['code'].contains("bl")) {
+                bluesRemaining = 1;
+              }
+              if (balls[i]['code'].contains("P")) {
+                pinksRemaining = 1;
+              }
+              if (balls[i]['code'].contains("B")) {
+                blacksRemaining = 1;
+              }
+            }
+          }
+          return;
+        }
+
+        switch (lastAction) {
+          case "PT":
+            passTurn();
+            currFrame.removeLast();
+            break;
+          case "F4":
+            ip.score -= 4;
+            ip.foulPointsRecieved -= 4;
+            ap.foulPointsGiven -= 4;
+            calculatePointsRemaining();
+            currFrame.removeLast();
+            break;
+          case "F5":
+            ip.score -= 5;
+            ip.foulPointsRecieved -= 5;
+            ap.foulPointsGiven -= 5;
+            calculatePointsRemaining();
+            currFrame.removeLast();
+            break;
+          case "F6":
+            ip.score -= 6;
+            ip.foulPointsRecieved -= 6;
+            ap.foulPointsGiven -= 6;
+            calculatePointsRemaining();
+            currFrame.removeLast();
+            break;
+          case "F7":
+            ip.score -= 7;
+            ip.foulPointsRecieved -= 7;
+            ap.foulPointsGiven -= 7;
+            calculatePointsRemaining();
+            currFrame.removeLast();
+            break;
+        }
       }
-    } else {
-      return null;
     }
   }
 
