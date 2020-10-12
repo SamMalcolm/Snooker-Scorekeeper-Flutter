@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'components.dart';
 
 class Player {
   // NAME
@@ -43,84 +44,94 @@ class Player {
       snookersRequired = 0;
     }
 
-    int scoringPoints = 1;
+    int scoringPoints = 0;
     snookersReqdFractionOfMax = 0;
+    if (pointsRemaining == 7) {
+      if (opponentsScore < score) {
+        winningScorelineColor = const Color(0xff0B0B0B);
+        snookersReqdScoreline = maxScore;
+        snookersReqdFractionOfMax = 1.0;
+      }
+    } else {
+      while (scoringPoints <= pointsRemaining) {
+        int pottentialScore = score;
+        int pottentialPointsRemaining = pointsRemaining;
+        pottentialScore += scoringPoints;
+        pottentialPointsRemaining -= scoringPoints;
 
-    while (scoringPoints <= pointsRemaining && pointsRemaining > 27) {
-      int pottentialScore = score;
-      int pottentialPointsRemaining = pointsRemaining;
-      pottentialScore += scoringPoints;
-      pottentialPointsRemaining -= scoringPoints;
-      if (opponentsScore + pottentialPointsRemaining < pottentialScore) {
-        snookersReqdScoreline = pottentialScore;
-        break;
-      } else {
-        if (pottentialPointsRemaining == 27) {
-          scoringPoints += 2;
-          winningScorelineColor = const Color(0xffCEB636);
-        } else if (pottentialPointsRemaining == 25) {
-          scoringPoints += 3;
-          winningScorelineColor = const Color(0xff397140);
-        } else if (pottentialPointsRemaining == 22) {
-          scoringPoints += 4;
-          winningScorelineColor = const Color(0xff694A20);
-        } else if (pottentialPointsRemaining == 18) {
-          scoringPoints += 5;
-          winningScorelineColor = const Color(0xff2F4EB4);
-        } else if (pottentialPointsRemaining == 13) {
-          scoringPoints += 6;
-          winningScorelineColor = const Color(0xff9B3D9B);
-        } else if (pottentialPointsRemaining == 7) {
-          scoringPoints += 7;
-          winningScorelineColor = const Color(0xff0B0B0B);
+        if (opponentsScore + pottentialPointsRemaining < pottentialScore) {
+          snookersReqdScoreline = pottentialScore;
+          break;
+        }
+        if (pottentialPointsRemaining <= 27) {
+          if (pottentialPointsRemaining == 27) {
+            scoringPoints += 2;
+            winningScorelineColor = const Color(0xffCEB636);
+          } else if (pottentialPointsRemaining == 25) {
+            scoringPoints += 3;
+            winningScorelineColor = const Color(0xff397140);
+          } else if (pottentialPointsRemaining == 22) {
+            scoringPoints += 4;
+            winningScorelineColor = const Color(0xff694A20);
+          } else if (pottentialPointsRemaining == 18) {
+            scoringPoints += 5;
+            winningScorelineColor = const Color(0xff2F4EB4);
+          } else if (pottentialPointsRemaining == 13) {
+            scoringPoints += 6;
+            winningScorelineColor = const Color(0xff9B3D9B);
+          } else if (pottentialPointsRemaining == 7) {
+            scoringPoints += 7;
+            winningScorelineColor = const Color(0xff0B0B0B);
+          } else {
+            break;
+          }
         } else {
           scoringPoints++;
         }
+
+        if (pottentialPointsRemaining < 0) {
+          break;
+        }
+      }
+      snookersReqdFractionOfMax = snookersReqdScoreline / maxScore;
+
+      if (snookersReqdScoreline > maxScore ||
+          opponentsScore + pointsRemaining < score) {
+        snookersReqdFractionOfMax = 0;
       }
     }
 
-    while (scoringPoints <= pointsRemaining && pointsRemaining <= 27) {
-      int pottentialScore = score;
-      int pottentialPointsRemaining = pointsRemaining;
+    //   while (scoringPoints <= pointsRemaining && pointsRemaining <= 27) {
+    //     int pottentialScore = score;
+    //     int pottentialPointsRemaining = pointsRemaining;
 
-      if (pottentialPointsRemaining == 27) {
-        scoringPoints += 2;
-        winningScorelineColor = const Color(0xffCEB636);
-      } else if (pottentialPointsRemaining == 25) {
-        scoringPoints += 3;
-        winningScorelineColor = const Color(0xff397140);
-      } else if (pottentialPointsRemaining == 22) {
-        scoringPoints += 4;
-        winningScorelineColor = const Color(0xff694A20);
-      } else if (pottentialPointsRemaining == 18) {
-        scoringPoints += 5;
-        winningScorelineColor = const Color(0xff2F4EB4);
-      } else if (pottentialPointsRemaining == 13) {
-        scoringPoints += 6;
-        winningScorelineColor = const Color(0xff9B3D9B);
-      } else if (pottentialPointsRemaining == 7) {
-        scoringPoints += 7;
-        winningScorelineColor = const Color(0xff0B0B0B);
-      }
+    //     if (pottentialPointsRemaining == 27) {
+    //       scoringPoints += 2;
+    //       winningScorelineColor = const Color(0xffCEB636);
+    //     } else if (pottentialPointsRemaining == 25) {
+    //       scoringPoints += 3;
+    //       winningScorelineColor = const Color(0xff397140);
+    //     } else if (pottentialPointsRemaining == 22) {
+    //       scoringPoints += 4;
+    //       winningScorelineColor = const Color(0xff694A20);
+    //     } else if (pottentialPointsRemaining == 18) {
+    //       scoringPoints += 5;
+    //       winningScorelineColor = const Color(0xff2F4EB4);
+    //     } else if (pottentialPointsRemaining == 13) {
+    //       scoringPoints += 6;
+    //       winningScorelineColor = const Color(0xff9B3D9B);
+    //     } else if (pottentialPointsRemaining == 7) {
+    //       scoringPoints += 7;
+    //       winningScorelineColor = const Color(0xff0B0B0B);
+    //     }
 
-      pottentialScore += scoringPoints;
-      pottentialPointsRemaining -= scoringPoints;
-      if (opponentsScore + pottentialPointsRemaining < pottentialScore) {
-        snookersReqdScoreline = pottentialScore;
-        break;
-      }
-    }
-
-    snookersReqdFractionOfMax = snookersReqdScoreline / maxScore;
-
-    // double srsl = (maxScore / 2) + opponentsScore;
-    // snookersReqdScoreline = srsl.ceil();
-    if (snookersReqdScoreline > maxScore) {
-      snookersReqdFractionOfMax = 0;
-    }
-    if (opponentsScore + pointsRemaining < score) {
-      snookersReqdFractionOfMax = 0;
-    }
+    //     pottentialScore += scoringPoints;
+    //     pottentialPointsRemaining -= scoringPoints;
+    //     if (opponentsScore + pottentialPointsRemaining < pottentialScore) {
+    //       snookersReqdScoreline = pottentialScore;
+    //       break;
+    //     }
+    //   }
   }
 
   Player(this.name, this.handicap) {
