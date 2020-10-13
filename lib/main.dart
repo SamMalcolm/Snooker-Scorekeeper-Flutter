@@ -3,11 +3,7 @@ import 'package:flutter/services.dart';
 import 'gameview.dart';
 import 'components.dart';
 
-void main() {
-  SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  runApp(new MyApp());
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
