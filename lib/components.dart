@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Object ui_colours = {
+Object uiColours = {
   "light_grey": const Color(0xffCCCACA),
   "dark_grey": const Color(0xffA2A0A0),
   "selected_dark_grey": const Color(0xff7E7C7C),
