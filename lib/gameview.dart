@@ -513,8 +513,6 @@ class _GameView extends State<GameView> {
 
   @override
   Widget build(BuildContext context) {
-    print('BUILDING');
-
     setState(() {
       if (!init) {
         game = new Game(widget.playerNames, widget.playerHandicaps);

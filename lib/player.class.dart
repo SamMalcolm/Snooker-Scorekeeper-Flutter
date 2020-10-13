@@ -60,10 +60,6 @@ class Player {
         int pottentialPointsRemaining = pointsRemaining;
         pottentialScore += scoringPoints;
         pottentialPointsRemaining -= scoringPoints;
-        print("POTTENTIAL SCORE");
-        print(pottentialScore);
-        print("POTTENTIAL POINTS REMAINING");
-        print(pottentialPointsRemaining);
         if (opponentsScore + pottentialPointsRemaining < pottentialScore) {
           snookersReqdScoreline = pottentialScore;
           break;
