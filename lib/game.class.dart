@@ -38,15 +38,63 @@ class Game {
     a.updateScoreLine(pointsRemaining, p.score, minFoul);
   }
 
+  bool lastActionRed() {
+    if (currFrame.length == 0) {
+      return false;
+    } else {
+      if (currFrame.last.contains("R")) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+
   void incrementReds() {
     redsRemaining++;
+    currFrame.add('ir');
     calculatePointsRemaining();
   }
 
   void decrementReds() {
     if (redsRemaining > 0) {
       redsRemaining--;
+      currFrame.add('dr');
       calculatePointsRemaining();
+    }
+  }
+
+  bool validateFinalColours(c) {
+    if (pointsRemaining > 27) {
+      return true;
+    } else {
+      if (pointsRemaining == 27 && c == "Y") {
+        return true;
+      } else if (pointsRemaining == 25 &&
+          c == "G" &&
+          (currFrame.last.contains("Y") || currFrame.last.contains("G*"))) {
+        return true;
+      } else if (pointsRemaining == 22 &&
+          c == "br" &&
+          (currFrame.last.contains("G") || currFrame.last.contains("br*"))) {
+        return true;
+      } else if (pointsRemaining == 18 &&
+          c == "bl" &&
+          (currFrame.last.contains("br") || currFrame.last.contains("bl*"))) {
+        return true;
+      } else if (pointsRemaining == 13 &&
+          c == "P" &&
+          (currFrame.last.contains("bl") || currFrame.last.contains("P*"))) {
+        return true;
+      } else if (pointsRemaining == 7 &&
+          c == "B" &&
+          (currFrame.last.contains("B") ||
+              currFrame.last.contains("P") ||
+              currFrame.last.contains("B*"))) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 
@@ -226,11 +274,23 @@ class Game {
 
     if (currFrame.length > 0) {
       String lastAction = currFrame.removeLast();
-
+      if (lastAction == "dr" || lastAction == "ir") {
+        if (lastAction == "dr") {
+          redsRemaining++;
+        } else {
+          redsRemaining--;
+        }
+      }
       for (int i = 0; i < balls.length; i++) {
         if (lastAction.contains(balls[i]['code']) &&
             !lastAction.contains("T")) {
           ap.score -= balls[i]['value'];
+          if (ap.currBreak == ap.highestBreak) {
+            ap.highestBreak -= balls[i]['value'];
+          }
+          if (ap.currBreak > 0) {
+            ap.currBreak -= balls[i]['value'];
+          }
           if (!lastAction.contains('*')) {
             if (balls[i]['code'].contains("R")) {
               redsRemaining++;

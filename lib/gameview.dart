@@ -140,7 +140,10 @@ class _GameView extends State<GameView> {
                         const Color(0xffE0C534),
                         const Color(0xffCEB636),
                       ],
-                      (game.yellowsRemaining > 0)
+                      (game.yellowsRemaining > 0 &&
+                              (game.lastActionRed() ||
+                                  game.redsRemaining == 0) &&
+                              game.validateFinalColours("Y"))
                           ? () {
                               setState(() {
                                 game.pot("Y", fb);
@@ -155,7 +158,10 @@ class _GameView extends State<GameView> {
                         const Color(0xff4CA256),
                         const Color(0xff397140),
                       ],
-                      (game.greensRemaining > 0)
+                      (game.greensRemaining > 0 &&
+                              (game.lastActionRed() ||
+                                  game.redsRemaining == 0) &&
+                              game.validateFinalColours("G"))
                           ? () {
                               setState(() {
                                 game.pot("G", fb);
@@ -170,7 +176,10 @@ class _GameView extends State<GameView> {
                         const Color(0xffB48247),
                         const Color(0xff694A20),
                       ],
-                      (game.brownsRemaining > 0)
+                      (game.brownsRemaining > 0 &&
+                              (game.lastActionRed() ||
+                                  game.redsRemaining == 0) &&
+                              game.validateFinalColours("br"))
                           ? () {
                               setState(() {
                                 game.pot("br", fb);
@@ -191,7 +200,10 @@ class _GameView extends State<GameView> {
                         const Color(0xff5271D6),
                         const Color(0xff2F4EB4),
                       ],
-                      (game.bluesRemaining > 0)
+                      (game.bluesRemaining > 0 &&
+                              (game.lastActionRed() ||
+                                  game.redsRemaining == 0) &&
+                              game.validateFinalColours("bl"))
                           ? () {
                               setState(() {
                                 game.pot("bl", fb);
@@ -206,7 +218,10 @@ class _GameView extends State<GameView> {
                         const Color(0xffE066BA),
                         const Color(0xff9B3D9B),
                       ],
-                      (game.pinksRemaining > 0)
+                      (game.pinksRemaining > 0 &&
+                              (game.lastActionRed() ||
+                                  game.redsRemaining == 0) &&
+                              game.validateFinalColours("P"))
                           ? () {
                               setState(() {
                                 game.pot("P", fb);
@@ -221,7 +236,10 @@ class _GameView extends State<GameView> {
                         const Color(0xff393939),
                         const Color(0xff0B0B0B),
                       ],
-                      (game.blacksRemaining > 0)
+                      (game.blacksRemaining > 0 &&
+                              (game.lastActionRed() ||
+                                  game.redsRemaining == 0) &&
+                              game.validateFinalColours("B"))
                           ? () {
                               setState(() {
                                 game.pot("B", fb);
