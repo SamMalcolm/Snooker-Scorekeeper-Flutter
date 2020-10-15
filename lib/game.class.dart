@@ -70,27 +70,15 @@ class Game {
     } else {
       if (pointsRemaining == 27 && c == "Y") {
         return true;
-      } else if (pointsRemaining == 25 &&
-          c == "G" &&
-          (currFrame.last.contains("Y") || currFrame.last.contains("G*"))) {
+      } else if (pointsRemaining == 25 && c == "G") {
         return true;
-      } else if (pointsRemaining == 22 &&
-          c == "br" &&
-          (currFrame.last.contains("G") || currFrame.last.contains("br*"))) {
+      } else if (pointsRemaining == 22 && c == "br") {
         return true;
-      } else if (pointsRemaining == 18 &&
-          c == "bl" &&
-          (currFrame.last.contains("br") || currFrame.last.contains("bl*"))) {
+      } else if (pointsRemaining == 18 && c == "bl") {
         return true;
-      } else if (pointsRemaining == 13 &&
-          c == "P" &&
-          (currFrame.last.contains("bl") || currFrame.last.contains("P*"))) {
+      } else if (pointsRemaining == 13 && c == "P") {
         return true;
-      } else if (pointsRemaining == 7 &&
-          c == "B" &&
-          (currFrame.last.contains("B") ||
-              currFrame.last.contains("P") ||
-              currFrame.last.contains("B*"))) {
+      } else if (pointsRemaining == 7 && c == "B") {
         return true;
       } else {
         return false;
