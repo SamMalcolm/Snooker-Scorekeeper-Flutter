@@ -120,7 +120,10 @@ class Game {
         players[i].active = true;
       }
     }
+   calculatePointsRemaining();
+
     currFrame.add('PT');
+    
   }
 
   void endGame() {

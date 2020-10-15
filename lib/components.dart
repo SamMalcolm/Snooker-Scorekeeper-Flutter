@@ -118,12 +118,19 @@ Widget returnScoreLine(player, width) {
           widthFactor: 1,
           heightFactor: player.snookersReqdFractionOfMax,
           child: Container(
-              color: player.winningScorelineColor,
+            //color: Color(0xFFCCCCCC),
+              decoration: BoxDecoration(
+                color:Color(0xFFCCCCCC),
+                border: Border(
+                  top: BorderSide(
+                      width: 4.0, color: player.winningScorelineColor),
+                ),
+              ),
               child: Padding(
                 padding: const EdgeInsets.only(top: 8.0),
                 child: Text('${player.snookersReqdScoreline}',
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white)),
+                    style: TextStyle(color: Colors.black)),
               )),
         ),
         FractionallySizedBox(
