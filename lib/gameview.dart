@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'game.class.dart';
 // import 'package:flutter/src/widgets/framework.dart';
 import 'components.dart';
@@ -538,33 +539,37 @@ class _GameView extends State<GameView> {
       }
     });
 
-    return Scaffold(body: OrientationBuilder(builder: (context, orientation) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          returnScoreLine(game.players[0],
-              (orientation == Orientation.landscape) ? 100.00 : 35.00),
-          Expanded(
-            child: SafeArea(
-              child: Container(
-                height: MediaQuery.of(context).size.height,
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      ...scoreBoard(),
-                      ...scoringInput(context),
-                    ],
+    return Scaffold(
+        body: AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle.dark,
+      child: OrientationBuilder(builder: (context, orientation) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            returnScoreLine(game.players[0],
+                (orientation == Orientation.landscape) ? 100.00 : 35.00),
+            Expanded(
+              child: SafeArea(
+                child: Container(
+                  height: MediaQuery.of(context).size.height,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        ...scoreBoard(),
+                        ...scoringInput(context),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          returnScoreLine(game.players[1],
-              (orientation == Orientation.landscape) ? 100.00 : 35.00)
-        ],
-      );
-    }));
+            returnScoreLine(game.players[1],
+                (orientation == Orientation.landscape) ? 100.00 : 35.00)
+          ],
+        );
+      }),
+    ));
   }
 }
 
