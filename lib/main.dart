@@ -131,12 +131,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Text(
-                      'Snooker Scorer',
+                      'Snooker Scoreboard',
                       textAlign: TextAlign.left,
                       style: TextStyle(
                         fontFamily: 'Helvetica Neue',
                         fontWeight: FontWeight.bold,
-                        fontSize: 36,
+                        fontSize: 32,
                         color: Colors.white,
                       ),
                     ),
