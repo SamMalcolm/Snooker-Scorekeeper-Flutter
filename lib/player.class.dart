@@ -26,13 +26,21 @@ class Player {
   double scoreFractionOfMax = 0;
   int snookersReqdScoreline = 74;
   double snookersReqdFractionOfMax = 74 / 147;
+  double maxScoreFraction = 1;
 
   Color winningScorelineColor = Color(0xFFC3A164);
 
-  void updateScoreLine(pointsRemaining, opponentsScore, minFoul) {
+  void updateMaxScore(pointsRemaining) {
+    maxScore = pointsRemaining + score;
+  }
+
+  void updateScoreLine(
+      pointsRemaining, opponentsScore, minFoul, opponentMaxScore) {
     winningScorelineColor = Color(0xFFC3A164);
     maxScore = score + pointsRemaining;
-    scoreFractionOfMax = (score / maxScore);
+    int max = (maxScore >= opponentMaxScore) ? maxScore : opponentMaxScore;
+    maxScoreFraction = (maxScore / max);
+    scoreFractionOfMax = (score / max);
     if (scoreFractionOfMax < 0) {
       scoreFractionOfMax = 0;
     }
@@ -94,7 +102,7 @@ class Player {
         }
       }
     }
-    snookersReqdFractionOfMax = snookersReqdScoreline / maxScore;
+    snookersReqdFractionOfMax = snookersReqdScoreline / max;
 
     if (snookersReqdScoreline > maxScore ||
         opponentsScore + pointsRemaining < score) {

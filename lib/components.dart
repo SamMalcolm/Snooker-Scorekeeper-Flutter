@@ -99,12 +99,13 @@ Widget returnScoreLine(player, width) {
   return Container(
     height: double.infinity,
     width: width,
+    color: Color(0xFF888888),
     child: Stack(
       alignment: Alignment.bottomCenter,
       children: [
         FractionallySizedBox(
           widthFactor: 1,
-          heightFactor: 1,
+          heightFactor: player.maxScoreFraction,
           child: Container(
               color: Color(0xFFCCCCCC),
               child: Padding(
@@ -118,9 +119,9 @@ Widget returnScoreLine(player, width) {
           widthFactor: 1,
           heightFactor: player.snookersReqdFractionOfMax,
           child: Container(
-            //color: Color(0xFFCCCCCC),
+              //color: Color(0xFFCCCCCC),
               decoration: BoxDecoration(
-                color:Color(0xFFCCCCCC),
+                color: Color(0xFFCCCCCC),
                 border: Border(
                   top: BorderSide(
                       width: 4.0, color: player.winningScorelineColor),

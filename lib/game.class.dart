@@ -32,10 +32,20 @@ class Game {
         pointsRemaining += 7;
       }
     }
+    int inactivePointsRemaining = pointsRemaining;
+    if (currFrame.length != 0) {
+      if (currFrame.last.contains("R")) {
+        inactivePointsRemaining -= 7;
+      }
+    }
+
     Player p = getInactivePlayer();
     Player a = getActivePlayer();
-    p.updateScoreLine(pointsRemaining, a.score, minFoul);
-    a.updateScoreLine(pointsRemaining, p.score, minFoul);
+
+    a.updateMaxScore(pointsRemaining);
+    p.updateMaxScore(inactivePointsRemaining);
+    a.updateScoreLine(pointsRemaining, p.score, minFoul, p.maxScore);
+    p.updateScoreLine(inactivePointsRemaining, a.score, minFoul, a.maxScore);
   }
 
   bool lastActionRed() {
@@ -120,10 +130,8 @@ class Game {
         players[i].active = true;
       }
     }
-   calculatePointsRemaining();
-
     currFrame.add('PT');
-    
+    calculatePointsRemaining();
   }
 
   void endGame() {
