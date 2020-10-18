@@ -109,7 +109,9 @@ Widget returnScoreLine(player, width) {
           child: Container(
               color: Color(0xFFCCCCCC),
               child: Padding(
-                padding: const EdgeInsets.only(top: 36.0),
+                padding: (player.maxScoreFraction < 1)
+                    ? const EdgeInsets.only(top: 8.0)
+                    : const EdgeInsets.only(top: 36.0),
                 child: Text('${player.maxScore}',
                     textAlign: TextAlign.center,
                     style: TextStyle(color: Colors.black)),
