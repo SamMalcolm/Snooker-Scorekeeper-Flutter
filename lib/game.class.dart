@@ -55,7 +55,17 @@ class Game {
       if (currFrame.last.contains("R")) {
         return true;
       } else {
-        return false;
+        for (int i = currFrame.length - 1; i >= 0; i--) {
+          if (currFrame[i].contains("ir") || currFrame[i].contains("dr")) {
+            continue;
+          } else {
+            if (currFrame[i].contains("R")) {
+              return true;
+            } else {
+              return false;
+            }
+          }
+        }
       }
     }
   }
