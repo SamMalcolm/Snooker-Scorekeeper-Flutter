@@ -260,7 +260,7 @@ class _GameView extends State<GameView> {
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             fontFamily: 'Helvetica Neue',
-                            fontSize: 22,
+                            fontSize: 18,
                             color: Colors.white,
                           )),
                       [
@@ -285,7 +285,7 @@ class _GameView extends State<GameView> {
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           fontFamily: 'Helvetica Neue',
-                          fontSize: 22,
+                          fontSize: 18,
                           color: Colors.white,
                         )),
                     [
@@ -302,7 +302,7 @@ class _GameView extends State<GameView> {
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           fontFamily: 'Helvetica Neue',
-                          fontSize: 22,
+                          fontSize: 18,
                           color: Colors.white,
                         )),
                     [
@@ -326,7 +326,7 @@ class _GameView extends State<GameView> {
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           fontFamily: 'Helvetica Neue',
-                          fontSize: 22,
+                          fontSize: 18,
                           color: Colors.white,
                         )),
                     [
@@ -343,7 +343,7 @@ class _GameView extends State<GameView> {
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           fontFamily: 'Helvetica Neue',
-                          fontSize: 22,
+                          fontSize: 18,
                           color: Colors.white,
                         )),
                     freeBallInputColour(fb), () {
@@ -360,7 +360,7 @@ class _GameView extends State<GameView> {
                       textAlign: TextAlign.left,
                       style: TextStyle(
                         fontFamily: 'Helvetica Neue',
-                        fontSize: 22,
+                        fontSize: 18,
                         color: Colors.white,
                       )),
                   [
@@ -556,6 +556,7 @@ class _GameView extends State<GameView> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
+                        SizedBox(height: 15.00),
                         ...scoreBoard(),
                         ...scoringInput(context),
                       ],
