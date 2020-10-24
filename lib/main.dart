@@ -96,40 +96,41 @@ class _MyHomePageState extends State<MyHomePage> {
         return SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Stack(
                 alignment: Alignment.bottomLeft,
                 children: [
-                  Container(
-                    height: (orientation == Orientation.landscape)
-                        ? 100.00
-                        : 250.00,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                          alignment: Alignment.topCenter,
-                          image: AssetImage('images/table.jpg'),
-                          fit: BoxFit.cover),
+                  Positioned.fill(
+                    child: FittedBox(
+                      child: Image.asset('images/table.jpg'),
+                      fit: BoxFit.cover,
                     ),
                   ),
-                  Container(
-                      padding: EdgeInsets.all(5.0),
-                      height: (orientation == Orientation.landscape)
-                          ? 100.00
-                          : 250.00,
-                      alignment: Alignment.bottomCenter,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: <Color>[
-                            Colors.black.withAlpha(0),
-                            Colors.black26,
-                            Colors.black87
-                          ],
-                        ),
-                      )),
+                  Positioned.fill(
+                    child: Container(
+                        decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: <Color>[
+                          Colors.black.withAlpha(0),
+                          Colors.black26,
+                          Colors.black87
+                        ],
+                      ),
+                    )),
+                  ),
                   Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: (orientation == Orientation.landscape)
+                        ? const EdgeInsets.only(
+                            left: 40.0, right: 16.0, bottom: 16.00, top: 128.00)
+                        : const EdgeInsets.only(
+                            left: 16.0,
+                            right: 16.0,
+                            bottom: 16.00,
+                            top: 180.00),
                     child: Text(
                       'Snooker Scoreboard',
                       textAlign: TextAlign.left,

@@ -156,7 +156,6 @@ Widget returnScoreLine(player, width) {
 Widget ballButton(text, gradientValues, cb) {
   return Expanded(
       child: Container(
-          height: 90.00,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(18.0),
             gradient: LinearGradient(
@@ -168,11 +167,14 @@ Widget ballButton(text, gradientValues, cb) {
           ),
           child: MaterialButton(
               onPressed: cb,
-              child: Text('$text',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontFamily: 'Helvetica Neue',
-                    fontSize: 22,
-                    color: Colors.white,
-                  )))));
+              child: Padding(
+                padding: const EdgeInsets.only(top: 24.0, bottom: 24.0),
+                child: Text('$text',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontFamily: 'Helvetica Neue',
+                      fontSize: 22,
+                      color: Colors.white,
+                    )),
+              ))));
 }

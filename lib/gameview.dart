@@ -57,25 +57,13 @@ class _GameView extends State<GameView> {
           child: Column(children: [
             Row(children: [
               bigButton(
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('+1',
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              fontFamily: 'Helvetica Neue',
-                              fontSize: 22,
-                              color: Colors.white,
-                            )),
-                        Container(),
-                        Text('${game.redsRemaining}',
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              fontFamily: 'Helvetica Neue',
-                              fontSize: 22,
-                              color: Colors.white,
-                            )),
-                      ]),
+                  Text('+1  (${game.redsRemaining})',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontFamily: 'Helvetica Neue',
+                        fontSize: 22,
+                        color: Colors.white,
+                      )),
                   [
                     const Color(0xffC72D2D),
                     const Color(0xff9D2C2C),
@@ -313,8 +301,7 @@ class _GameView extends State<GameView> {
                     setState(() {
                       game.endGame();
                     });
-                  }, "Concede Frame?",
-                      "Are you sure you to end this frame? It will be awarded to the player with the most points and cannot be un-done");
+                  }, "Concede Frame?", "Are you sure you to end this frame?");
                 }),
               ],
             ),
@@ -374,7 +361,7 @@ class _GameView extends State<GameView> {
                         builder: (context) => MyHomePage(),
                       ));
                 }, "End the Match?",
-                    "Are you sure you want to end the match and exit to tthe home screen? this cannot be un-done");
+                    "Are you sure you want to exit to the home screen?");
               }),
             ]),
           ]))
