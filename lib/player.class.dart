@@ -47,66 +47,67 @@ class Player {
     if (maxScore < opponentsScore) {
       double sr = (opponentsScore - maxScore) / minFoul;
       snookersRequired = sr.ceil();
+      snookersReqdFractionOfMax = 0;
     } else {
       snookersRequired = 0;
-    }
 
-    int scoringPoints = 0;
-    snookersReqdFractionOfMax = 0;
-    int diff = (opponentsScore > score)
-        ? (opponentsScore - score)
-        : (score - opponentsScore);
+      int scoringPoints = 0;
+      snookersReqdFractionOfMax = 0;
+      int diff = (opponentsScore > score)
+          ? (opponentsScore - score)
+          : (score - opponentsScore);
 
-    if (diff <= 7 && pointsRemaining == 7) {
-      snookersReqdFractionOfMax = 1.0;
-      snookersReqdScoreline = maxScore;
-      winningScorelineColor = const Color(0xff0B0B0B);
-    } else {
-      while (scoringPoints <= pointsRemaining) {
-        int pottentialScore = score;
-        int pottentialPointsRemaining = pointsRemaining;
-        pottentialScore += scoringPoints;
-        pottentialPointsRemaining -= scoringPoints;
-        if (opponentsScore + pottentialPointsRemaining < pottentialScore) {
-          snookersReqdScoreline = pottentialScore;
-          break;
-        }
-        if (pottentialPointsRemaining <= 27) {
-          if (pottentialPointsRemaining == 27) {
-            scoringPoints += 2;
-            winningScorelineColor = const Color(0xffCEB636);
-          } else if (pottentialPointsRemaining == 25) {
-            scoringPoints += 3;
-            winningScorelineColor = const Color(0xff397140);
-          } else if (pottentialPointsRemaining == 22) {
-            scoringPoints += 4;
-            winningScorelineColor = const Color(0xff694A20);
-          } else if (pottentialPointsRemaining == 18) {
-            scoringPoints += 5;
-            winningScorelineColor = const Color(0xff2F4EB4);
-          } else if (pottentialPointsRemaining == 13) {
-            scoringPoints += 6;
-            winningScorelineColor = const Color(0xff9B3D9B);
-          } else if (pottentialPointsRemaining == 7) {
-            scoringPoints += 7;
-            winningScorelineColor = const Color(0xff0B0B0B);
-          } else {
+      if (diff <= 7 && pointsRemaining == 7) {
+        snookersReqdFractionOfMax = 1.0;
+        snookersReqdScoreline = maxScore;
+        winningScorelineColor = const Color(0xff0B0B0B);
+      } else {
+        while (scoringPoints <= pointsRemaining) {
+          int pottentialScore = score;
+          int pottentialPointsRemaining = pointsRemaining;
+          pottentialScore += scoringPoints;
+          pottentialPointsRemaining -= scoringPoints;
+          if (opponentsScore + pottentialPointsRemaining < pottentialScore) {
+            snookersReqdScoreline = pottentialScore;
             break;
           }
-        } else {
-          scoringPoints++;
-        }
+          if (pottentialPointsRemaining <= 27) {
+            if (pottentialPointsRemaining == 27) {
+              scoringPoints += 2;
+              winningScorelineColor = const Color(0xffCEB636);
+            } else if (pottentialPointsRemaining == 25) {
+              scoringPoints += 3;
+              winningScorelineColor = const Color(0xff397140);
+            } else if (pottentialPointsRemaining == 22) {
+              scoringPoints += 4;
+              winningScorelineColor = const Color(0xff694A20);
+            } else if (pottentialPointsRemaining == 18) {
+              scoringPoints += 5;
+              winningScorelineColor = const Color(0xff2F4EB4);
+            } else if (pottentialPointsRemaining == 13) {
+              scoringPoints += 6;
+              winningScorelineColor = const Color(0xff9B3D9B);
+            } else if (pottentialPointsRemaining == 7) {
+              scoringPoints += 7;
+              winningScorelineColor = const Color(0xff0B0B0B);
+            } else {
+              break;
+            }
+          } else {
+            scoringPoints++;
+          }
 
-        if (pottentialPointsRemaining < 0) {
-          break;
+          if (pottentialPointsRemaining < 0) {
+            break;
+          }
         }
       }
-    }
-    snookersReqdFractionOfMax = snookersReqdScoreline / max;
+      snookersReqdFractionOfMax = snookersReqdScoreline / max;
 
-    if (snookersReqdScoreline > maxScore ||
-        opponentsScore + pointsRemaining < score) {
-      snookersReqdFractionOfMax = 0;
+      if (snookersReqdScoreline > maxScore ||
+          opponentsScore + pointsRemaining < score) {
+        snookersReqdFractionOfMax = 0;
+      }
     }
   }
 
